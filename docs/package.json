@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "gen": "ream generate",
+    "dev": "ream dev"
+  },
+  "dependencies": {
+    "github-markdown-css": "^2.6.0",
+    "nprogress": "^0.2.0",
+    "ream": "^0.9.0"
+  },
+  "devDependencies": {
+    "vue-markdown-loader": "^0.6.2"
+  }
+}
