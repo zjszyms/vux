@@ -162,6 +162,10 @@
     "icon": "&#xe626;"
   },
   {
+    "name": "popup-radio",
+    "icon": "&#xe60f;"
+  },
+  {
     "name": "popup",
     "icon": "&#xe61e;"
   },
@@ -302,6 +306,10 @@
   {
     "name": "x-switch",
     "icon": "&#xe61c;"
+  },
+  {
+    "name": "x-table",
+    "icon": "&#xe66d;"
   },
   {
     "name": "x-textarea",

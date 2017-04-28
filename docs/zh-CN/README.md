@@ -50,27 +50,16 @@ nav: zh-CN
   <br>
 </p>
 
-<p class="warning">
-  如果你遇到 `$t` 报错问题，`请不要开 issue`，升级 `vux-loader >= 1.0.58`。
-  <br>
-  <br>
-  VUX 必须配合 `vux-loader` 使用，如果不使用 vux2 模板请按照下面文档正确配置。
-</p>
+::: warning
+  如果你遇到 <code>$t</code> 报错问题，`请不要开 issue`，升级 `vux-loader >= 1.0.58`。
 
-<p class="tip">
-  2.1.0 ~ 3.0.0 之间版本不会有影响升级的 `break change`，请放心及时更新版本。
-  <br>
-  <br>
-  0.x 版本文档不完整，并且已经不再维护。请更新或者直接使用`2.x`。
-  <br>
-  如果你想查看`0.x`组件代码和 Demo 代码，请查看 [master 分支](https://github.com/airyland/vux/tree/master)
-  <br>
-  <a href="https://vuxjs.gitbooks.io/vux/content/">访问 `0.x` 文档地址</a>
-</p>
+  VUX 必须配合 `vux-loader` 使用，如果不使用 vux2 模板请按照下面文档正确配置。
+:::
+
 
 ## 简介
 
-Vux（读音 [v'ju:z]，同`views`）是基于`WeUI`和`Vue`(2.x)开发的移动端UI组件库，主要服务于微信页面。
+VUX（读音 [v'ju:z]，同 `views`）是基于`WeUI`和`Vue`(2.x)开发的移动端UI组件库，主要服务于微信页面。
 
 基于`webpack`+`vue-loader`+`vux`可以快速开发移动端页面，配合`vux-loader`方便你在`WeUI`的基础上定制需要的样式。
 
@@ -78,14 +67,12 @@ Vux（读音 [v'ju:z]，同`views`）是基于`WeUI`和`Vue`(2.x)开发的移动
 
 `vux`并不完全依赖于`WeUI`，但是尽量保持整体UI样式接近`WeUI`的设计规范。最初目标是创建一个`易用`，`实用`，`美观`的移动端UI组件库，现在离理想状态还有不少距离，因此需要大家及时反馈问题及贡献代码。
 
-即使你不使用vux的代码, 但能从源码得到一些参考那么也是件让人高兴的事情。
+即使你不直接使用 VUX 组件代码, 你依然可以参考 VUX 代码来实现自己的组件。
 
-<p class="warning">
-  vux@2.x 推荐`webpack+vue-loader`方式的开发，如果要使用`umd`文件，请参照下面文档。不建议使用引入`script`的方式进行开发，因为它会带来一系列的开发、维护、效率、部署问题。
-  <br>
-  <br>
+::: warning
+  vux@2.x 推荐`webpack+vue-loader`方式的开发，如果要使用`umd`文件，请参照下面文档。不建议使用引入`script`的方式进行开发，因为它会带来一系列的开发、维护、效率、部署问题。<br>
   Life is short, use webpack.
-</p>
+:::
 
 ## 使用案例
 
@@ -174,7 +161,8 @@ npm run dev
   ```
   yarn config set registry https://registry.npm.taobao.org
   ```
-  <br>
+
+
   ```
   yarn
   ```

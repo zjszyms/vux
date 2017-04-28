@@ -791,8 +791,7 @@ nav: ${lang}
 
   for (let i in releases) {
     const release = releases[i]
-    let file = getPath(`../docs/changes/${lang}/${i}.md`)
-    let htmlFile = getPath(`../docs/changes/${lang}/${i}.html`)
+    let file = getPath(`../docs/${lang}/changes/${i}.md`)
 
     let data = {
       lang: lang,
@@ -800,7 +799,7 @@ nav: ${lang}
       title: `${i}发布`,
       components: []
     }
-    let content = ''
+    let content = `# VUX ${i} 发布-基于 WeUI 和 Vue 的移动端组件库`
     for (let j in release) {
       content += `\n## ${_camelCase(j)}\n`
       release[j].forEach(function (line) {
