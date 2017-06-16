@@ -1,5 +1,10 @@
 icon: '&#xe661;'
-import_code: import { Grid, GridItem } from 'vux'
+example: |
+  <grid>
+    <grid-item label="Grid" v-for="i in 9">
+      <img slot="icon" src="../assets/grid_icon.png">
+    </grid-item>
+  </grid>
 tags:
   en:
     - grid
@@ -11,15 +16,6 @@ tags:
 items:
   - grid
   - grid-item
-extra: |
-
-  ``` html
-  <grid>
-    <grid-item label="Grid" v-for="i in 9">
-      <img slot="icon" src="../assets/grid_icon.png">
-    </grid-item>
-  </grid>
-  ```
 grid:
   props:
     rows:

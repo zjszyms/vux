@@ -208,7 +208,7 @@ methods:
   reset:
     params: '`(position, duration, easing)`'
     en: 'reset scroller to reset height whenever your data is changed. easing can be one of ease-in, ease-in-out, ease, bezier(n, n, n, n)'
-    zh-CN: '在内容变化(v-for渲染，异步数据加载)后需要调用，用以重新渲染，避免新加的内容无法上拉看到，一般在 $nextTick 回调里调用。easing 可以为 ease-in, ease-in-out, ease, bezier(n, n, n, n)'
+    zh-CN: '在内容变化(v-for渲染，异步数据加载)后需要调用，用以重新渲染，避免新加的内容无法上拉看到，一般在 $nextTick 回调里调用。easing 可以为 ease-in, ease-in-out, ease, bezier(n, n, n, n)。duration 为整数，单位毫秒。'
   donePullup:
     en: set pullup done after new data is fetched
     zh-CN: 设置上拉刷新操作完成，在数据加载后执行

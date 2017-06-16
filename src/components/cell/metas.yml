@@ -1,13 +1,10 @@
 icon: '&#xe62a;'
-extra:
-  zh-CN: >
-    ```html
-      <group>
-        <cell title="title" value="value"></cell>
-      </group>
-    ```
-    
-    <p class="tip">cell只能在`Group`中使用</p>
+example: |
+  <group>
+    <cell title="title" value="value"></cell>
+  </group>
+tip: |
+  `cell`只能在`Group`中使用
 tags:
   en:
     - cell
@@ -32,14 +29,14 @@ props:
     en: the text below title
     zh-CN: 标题下面文字，一般为说明文字
   link:
-    type: String, Object
+    type: String,Object
     en: redirect link when being clicked
     zh-CN: 点击链接，可以为http(s)协议，也可以是 vue-router 支持的地址形式
   is-link:
     type: Boolean
     default: false
     en: if this is a link, if true, there will be an arrow on the right
-    zh-CN: 是否为链接，如果是，右侧将会出现指引点击的右箭头
+    zh-CN: 是否为链接，如果是，右侧将会出现指引点击的箭头
   primary:
     type: String
     default: 'title'
@@ -74,11 +71,8 @@ props:
     zh-CN: 对 label 和箭头(如果使用 is-link)显示不可操作样式
 slots:
   default:
-    en: "right area, you can use default slot instead of prop:value so you can use complexed layout"
-    zh-CN: 右侧内容，相比于value的优点是可以用复杂的样式或者调用组件
-  value:
-    en: "[deprecated] the same as default slot"
-    zh-CN: "[废弃] 同默认slot"
+    en: "right area, you can use default slot instead of `prop:value` so you can use complexed layout"
+    zh-CN: 右侧内容，相比于`prop:value`的优点是可以用复杂的样式或者调用组件
   icon:
     en: icon area before title
     zh-CN: 标题左侧的图像位置
@@ -92,6 +86,10 @@ slots:
     version: v2.2.1-rc.6
     en: inline-desc slot, the same function as prop:inline-desc but can use html
     zh-CN: inline-desc 内容，和 prop:inline-desc 功能一样，但是可以使用 html
+  value:
+    status: deprecated
+    en: "[deprecated] the same as default slot"
+    zh-CN: "[废弃] 同默认slot"
 changes:
   next:
     en:

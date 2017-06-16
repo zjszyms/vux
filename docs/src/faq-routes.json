@@ -1,0 +1,66 @@
+[
+  {
+    "title": " $t is not defined",
+    "path": "/zh-CN/faq/$t-is-not-defined.html"
+  },
+  {
+    "title": " VUX 能否在微信小程序里使用",
+    "path": "/zh-CN/faq/can-vux-used-in-weapp.html"
+  },
+  {
+    "title": " Can't resolve '../inline-desc' in",
+    "path": "/zh-CN/faq/cannot-resolve-inline-desc.html"
+  },
+  {
+    "title": " vux2 和 Vue 官方 webpack 模板区别是什么？",
+    "path": "/zh-CN/faq/difference-between-vux-template-and-webpack-template.html"
+  },
+  {
+    "title": " 文档是用什么工具编写的？",
+    "path": "/zh-CN/faq/document-framework.html"
+  },
+  {
+    "title": " 样式冗余",
+    "path": "/zh-CN/faq/dupicate-style.html"
+  },
+  {
+    "title": " VUX 是否为微信团队项目",
+    "path": "/zh-CN/faq/is-vux-wechat-official-project.html"
+  },
+  {
+    "title": " Uncaught SyntaxError: Unexpected token export",
+    "path": "/zh-CN/faq/Uncaught-SyntaxError-Unexpected-token-export.html"
+  },
+  {
+    "title": " VUX 打包体积过大",
+    "path": "/zh-CN/faq/vux-build-issue.html"
+  },
+  {
+    "title": " VUX 服务端渲染",
+    "path": "/zh-CN/faq/vux-server-render-support.html"
+  },
+  {
+    "title": " 什么是虚拟组件(virtual component)",
+    "path": "/zh-CN/faq/what-is-vux-virtual-component.html"
+  },
+  {
+    "title": " 为什么不能引入全部组件",
+    "path": "/zh-CN/faq/why-cannot-i-import-all-components.html"
+  },
+  {
+    "title": " 为什么不能直接引用 cdn 链接",
+    "path": "/zh-CN/faq/why-cannot-i-use-vux-with-cdn.html"
+  },
+  {
+    "title": " 为什么使用 .vue 源码分发而不是 js 文件",
+    "path": "/zh-CN/faq/why-use-vue-file-for-distribution.html"
+  },
+  {
+    "title": " 为什么部分组件要加`x-`前缀",
+    "path": "/zh-CN/faq/why-use-x-prefix-for-components.html"
+  },
+  {
+    "title": " 担心停止维护",
+    "path": "/zh-CN/faq/will-vux-stop-maintaining.html"
+  }
+]

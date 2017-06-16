@@ -1,7 +1,9 @@
 var hljs = require('highlight.js');
 var taskLists = require('markdown-it-task-lists');
 var customContainer = require('markdown-it-container')
+var emoji = require('markdown-it-emoji');
 var markdown = require('markdown-it')({
+  titleSuffix: ' | VUX - Vue 移动端 UI 组件库',
   html: true,
   breaks: true,
   typographer: true,
@@ -13,29 +15,26 @@ var markdown = require('markdown-it')({
                '</code></pre>';
       } catch (__) {}
     }
-
     return '<pre class="hljs"><code>' + markdown.utils.escapeHtml(str) + '</code></pre>';
   }
 })
-.use(taskLists)
+// .use(taskLists)
 .use(customContainer, 'tip', {
-
   validate: function(params) {
     return params.trim() === 'tip'
   }
 })
 .use(customContainer, 'warning', {
-
   validate: function(params) {
     return params.trim() === 'warning'
   }
 })
 .use(customContainer, 'danger', {
-
   validate: function(params) {
     return params.trim() === 'danger'
   }
-});
+})
+.use(emoji)
 
 module.exports = {
   entry: 'src/_index.js',

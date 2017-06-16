@@ -12,10 +12,8 @@ const sortObj = require('sort-object')
 
 rimraf.sync(path.resolve(__dirname, '../docs/zh-CN/demos'))
 mkdirp.sync(path.resolve(__dirname, '../docs/zh-CN/demos'))
-mkdirp.sync(path.resolve(__dirname, '../docs/zh-CN/changes'))
-mkdirp.sync(path.resolve(__dirname, '../docs/changes'))
-mkdirp.sync(path.resolve(__dirname, '../docs/changes/en'))
-mkdirp.sync(path.resolve(__dirname, '../docs/changes/zh-CN'))
+mkdirp.sync(path.resolve(__dirname, '../docs/zh-CN/changelog'))
+mkdirp.sync(path.resolve(__dirname, '../docs/en/changelog'))
 
 const aliasMap = {
   Base64Tool: 'base64',
@@ -455,25 +453,19 @@ nav: ${lang}
 }
 
 glob(getPath("../src/styles/*.yml"), {}, function (er, files) {
-  let infos = []
+  mkdirp.sync(path.resolve(__dirname, '../docs/zh-CN/css'))
+
   files.forEach(function (file) {
     const content = fs.readFileSync(file, 'utf-8')
     const info = yaml.safeLoad(content)
-    infos.push(info)
+
+    let docs = ``
+    docs += `## ${info.name.en}\n`
+    docs += `${info.doc}\n\n`
+    fs.writeFileSync(getPath(`../docs/zh-CN/css/${info.name.en}.md`), docs)
   })
-  buildCssDocs(infos)
 })
 
-function buildCssDocs(infoList) {
-  let docs = `---
-nav: zh-CN
----\n`
-  infoList.forEach(function (one) {
-    docs += `\n## ${one.name.en}\n`
-    docs += `${one.doc}\n\n`
-  })
-  fs.writeFileSync(getPath(`../docs/zh-CN/css.md`), docs)
-}
 
 function getVersion(version) {
   let rs = ''
@@ -577,19 +569,7 @@ function getKeyHTML(key) {
   return `<span class="prop-key" style="white-space:nowrap;">${key}</span>`
 }
 
-function getTypeHTML(type) {
-  type = type || 'String'
-  if (/,/.test(type)) {
-    const list = type.split(',').map(function (one) {
-      return one.replace(/^\s+|\s+$/g, '')
-    }).map(function (one) {
-      return `<span class="type type-${one ? one.toLowerCase() : 'string'}">${one}</span>`
-    })
-    return list.join('<br>')
-  } else {
-    return `<span class="type type-${type ? type.toLowerCase() : 'string'}">${type}</span>`
-  }
-}
+
 
 function getChangeTagHTML(str, fontSize = '15px') {
   const _split = str.split(']')
@@ -724,7 +704,7 @@ function parseChange(str) {
 
 function parseTag(firstTag, tag) {
   if (tag === 'next') {
-    return `${tag} (not release yet)`
+    return `${tag} (暂未发布)`
   }
   return tag
 }
@@ -752,8 +732,10 @@ function buildChanges(infos, lang = 'zh-CN') {
     }
   })
   let str = `---
-nav: ${lang}
----\n`
+title: VUX 更新日志
+---\n
+
+# VUX 更新日志`
 
   rs = sortObj(rs, {
     sort: function (a, b) {
@@ -773,11 +755,11 @@ nav: ${lang}
   for (let i in rs) {
     releases[i] = {}
       // releases += `\n # ${i}\n`
-    str += `\n### ${parseTag(firstTag, i)}_COM\n`
+    str += `\n## ${parseTag(firstTag, i)}\n`
     for (let j in rs[i]) {
       // releases += `\n## ${_camelCase(j)}\n`
       releases[i][j] = []
-      str += `\n#### ${_camelCase(j)}\n`
+      str += `\n### ${_camelCase(j)}\n`
       str += `<ul>`
       rs[i][j] && rs[i][j].forEach(one => {
         str += `${parseChange(getChangeTagHTML(one))}`
@@ -791,7 +773,7 @@ nav: ${lang}
 
   for (let i in releases) {
     const release = releases[i]
-    let file = getPath(`../docs/${lang}/changes/${i}.md`)
+    let file = getPath(`../docs/${lang}/changelog/${i}.md`)
 
     let data = {
       lang: lang,
@@ -799,7 +781,19 @@ nav: ${lang}
       title: `${i}发布`,
       components: []
     }
-    let content = `# VUX ${i} 发布-基于 WeUI 和 Vue 的移动端组件库`
+    let title = ''
+    if (i === 'next') {
+      title = 'next 即将发布'
+    } else {
+      title = `${i} 发布`
+    }
+    let content = `
+---
+title: VUX ${title}
+---
+
+# ${title}
+`
     for (let j in release) {
       content += `\n## ${_camelCase(j)}\n`
       release[j].forEach(function (line) {
@@ -819,5 +813,5 @@ nav: ${lang}
 
   str += '\n'
 
-  fs.writeFileSync(getPath(`../docs/${lang}/changes.md`), str)
+  fs.writeFileSync(getPath(`../docs/${lang}/changelog/changelog.md`), str)
 }

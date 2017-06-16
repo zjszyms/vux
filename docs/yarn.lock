@@ -203,6 +203,12 @@ aws4@^1.2.1:
   version "1.6.0"
   resolved "http://registry.npm.taobao.org/aws4/download/aws4-1.6.0.tgz#83ef5ca860b2b32e4a0deedee8c771b9db57471e"
 
+axios@^0.16.1:
+  version "0.16.1"
+  resolved "http://registry.npm.taobao.org/axios/download/axios-0.16.1.tgz#c0b6d26600842384b8f509e57111f0d2df8223ca"
+  dependencies:
+    follow-redirects "^1.2.3"
+
 babel-code-frame@^6.11.0, babel-code-frame@^6.22.0:
   version "6.22.0"
   resolved "http://registry.npm.taobao.org/babel-code-frame/download/babel-code-frame-6.22.0.tgz#027620bee567a88c32561574e7fd0801d33118e4"
@@ -1386,7 +1392,7 @@ debug@2.6.1:
   dependencies:
     ms "0.7.2"
 
-debug@2.6.4, debug@^2.1.1, debug@^2.2.0:
+debug@2.6.4, debug@^2.1.1, debug@^2.2.0, debug@^2.4.5:
   version "2.6.4"
   resolved "http://registry.npm.taobao.org/debug/download/debug-2.6.4.tgz#7586a9b3c39741c0282ae33445c4e8ac74734fe0"
   dependencies:
@@ -1775,6 +1781,12 @@ find-up@^1.0.0:
 flatten@^1.0.2:
   version "1.0.2"
   resolved "http://registry.npm.taobao.org/flatten/download/flatten-1.0.2.tgz#dae46a9d78fbe25292258cc1e780a41d95c03782"
+
+follow-redirects@^1.2.3:
+  version "1.2.3"
+  resolved "http://registry.npm.taobao.org/follow-redirects/download/follow-redirects-1.2.3.tgz#01abaeca85e3609837d9fcda3167a7e42fdaca21"
+  dependencies:
+    debug "^2.4.5"
 
 for-in@^1.0.1:
   version "1.0.2"
@@ -2384,7 +2396,7 @@ js-tokens@^3.0.0:
   version "3.0.1"
   resolved "http://registry.npm.taobao.org/js-tokens/download/js-tokens-3.0.1.tgz#08e9f132484a2c45a30907e9dc4d5567b7f114d7"
 
-js-yaml@^3.4.3:
+js-yaml@^3.4.3, js-yaml@^3.5.2, js-yaml@^3.8.3:
   version "3.8.3"
   resolved "http://registry.npm.taobao.org/js-yaml/download/js-yaml-3.8.3.tgz#33a05ec481c850c8875929166fe1beb61c728766"
   dependencies:
@@ -2666,6 +2678,10 @@ map-obj@^1.0.0, map-obj@^1.0.1:
 markdown-it-container@^2.0.0:
   version "2.0.0"
   resolved "http://registry.npm.taobao.org/markdown-it-container/download/markdown-it-container-2.0.0.tgz#0019b43fd02eefece2f1960a2895fba81a404695"
+
+markdown-it-emoji@^1.3.0:
+  version "1.3.0"
+  resolved "http://registry.npm.taobao.org/markdown-it-emoji/download/markdown-it-emoji-1.3.0.tgz#903ae1a9968c3f17d4e142f115d4ec575e56d2cb"
 
 markdown-it-task-lists@^2.0.0:
   version "2.0.0"
@@ -4321,9 +4337,9 @@ uuid@^3.0.0:
   version "3.0.1"
   resolved "http://registry.npm.taobao.org/uuid/download/uuid-3.0.1.tgz#6544bba2dfda8c1cf17e629a3a305e2bb1fee6c1"
 
-v-markdown-loader@^0.6.3-beta.1:
-  version "0.6.3-beta.1"
-  resolved "https://registry.npmjs.org/v-markdown-loader/-/v-markdown-loader-0.6.3-beta.1.tgz#6db86048fae81edaa49b83f63dd3d3bb3afb6365"
+v-markdown-loader@^0.6.3-beta.4:
+  version "0.6.3-beta.4"
+  resolved "http://registry.npm.taobao.org/v-markdown-loader/download/v-markdown-loader-0.6.3-beta.4.tgz#5a8c5f0d79124410fc8fcdc783bb1763ba4bf39b"
   dependencies:
     cheerio "^0.20.0"
     highlight.js "^9.4.0"
@@ -4390,7 +4406,7 @@ vue-markdown-loader@^0.6.2:
     markdown-it "^6.0.5"
     rimraf "^2.5.2"
 
-vue-meta@^0.5.5:
+vue-meta@^0.5.5, vue-meta@^0.5.6:
   version "0.5.6"
   resolved "http://registry.npm.taobao.org/vue-meta/download/vue-meta-0.5.6.tgz#e4b56838167f0aa40a202f45e1eec6fb91861689"
   dependencies:
@@ -4614,6 +4630,12 @@ y18n@^3.2.1:
 yallist@^2.0.0:
   version "2.1.2"
   resolved "http://registry.npm.taobao.org/yallist/download/yallist-2.1.2.tgz#1c11f9218f076089a47dd512f93c6699a6a81d52"
+
+yaml-loader@^0.4.0:
+  version "0.4.0"
+  resolved "http://registry.npm.taobao.org/yaml-loader/download/yaml-loader-0.4.0.tgz#4aae447d13c1aa73a989d8a2a5309b0b1a3ca353"
+  dependencies:
+    js-yaml "^3.5.2"
 
 yargs-parser@^4.2.0:
   version "4.2.1"

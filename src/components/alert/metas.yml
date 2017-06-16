@@ -1,4 +1,28 @@
 icon: '&#xe603;'
+example: |
+  <template>
+    <div v-transfer-dom> // 请查看 v-transfer-dom 文档
+      <alert v-model="show"></alert>
+    </div>
+  </template>
+
+  <script>
+  import { TransferDom, Alert } from 'vux'
+
+  export default {
+    directives: {
+      TransferDom
+    },
+    components: {
+      Alert
+    },
+    data () {
+      return {
+        show: false
+      }
+    }
+  }
+  </script>
 extra:
   zh-CN: |
 

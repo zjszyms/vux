@@ -74,7 +74,14 @@ export default {
       this.$emit('input', val)
     },
     value (val) {
-      this.currentValue = val
+      if (val.length && !/\d+/.test(val[0])) {
+        const id = name2value(val, this.list).split(' ')
+        if (id[0] !== '__' && id[1] !== '__') {
+          this.currentValue = id
+        }
+      } else {
+        this.currentValue = val
+      }
     }
   }
 }

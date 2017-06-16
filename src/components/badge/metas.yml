@@ -7,7 +7,7 @@ references:
       link: https://zhuanlan.zhihu.com/p/26107887
 props:
   text:
-    type: String
+    type: String,Number
     default: ''
     en: text of the Badge
     zh-CN: 显示的文字
