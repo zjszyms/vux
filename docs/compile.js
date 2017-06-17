@@ -274,6 +274,9 @@ export default {
   <h3>社区相关讨论</h3>
   [即将上线]
 
+  <h3>相关 issue</h3>
+  [todo]
+
   <hr>
 
   <h3>贡献者</h3>

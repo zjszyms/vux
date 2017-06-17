@@ -8,7 +8,6 @@ examples/webpack/
 .idea
 dist/components-commonjs/
 /site
-docs/zh-CN/*
 docs/en/*
 !docs/**/README.md
 !docs/**/livingearth.md
@@ -29,3 +28,5 @@ changes.json
 nuxt/
 docs/releases.json
 docs/dist
+docs/zh-CN/components/
+docs/zh-CN/changelog/
