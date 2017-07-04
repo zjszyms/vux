@@ -32,3 +32,6 @@ docs/zh-CN/components/
 docs/zh-CN/changelog/
 dist/
 docs/zh-CN/demos/
+docs/src/routes.json
+docs/src/faq-routes.json
+docs/src/_index.js
