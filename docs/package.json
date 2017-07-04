@@ -14,9 +14,9 @@
     "markdown-it-emoji": "^1.3.0",
     "markdown-it-task-lists": "^2.0.0",
     "nprogress": "^0.2.0",
-    "ream": "beta",
+    "ream": "^1.0.0-rc.6",
     "v-markdown-loader": "^0.6.3-beta.4",
-    "vue-meta": "^0.5.6",
+    "vue-meta": "^1.0.4",
     "yaml-loader": "^0.4.0"
   },
   "devDependencies": {
