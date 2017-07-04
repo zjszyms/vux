@@ -789,6 +789,11 @@ routes.push({
 })
     
 routes.push({
+  path: '/zh-CN/faq/why-using-vux-loader.html',
+  component: () => import('../zh-CN/faq/why-using-vux-loader.md')
+})
+    
+routes.push({
   path: '/zh-CN/faq/will-vux-stop-maintaining.html',
   component: () => import('../zh-CN/faq/will-vux-stop-maintaining.md')
 })

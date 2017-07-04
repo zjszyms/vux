@@ -91,9 +91,6 @@ module.exports = [{
   }, {
     title: '插件列表',
     path: '/zh-CN/vux-loader/plugins.html'
-  }, {
-    title: '实现原理',
-    path: '/zh-CN/vux-loader/how-vux-loader-works.html'
   }]
 }, 
 {

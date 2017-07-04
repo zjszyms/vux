@@ -12,7 +12,7 @@ title: 开始使用 VUX 之前
 
 ## WeUI
 
-VUX 样式基于 [WeUI](https://github.com/weui/weui)，但是你不必通过使用 VUX 来使用 `WeUI`。简单的页面你可以直接引入 `WeUI` 样式。详细请参考[文档](https://github.com/weui/weui)。
+VUX 样式基于 [WeUI](https://github.com/weui/weui)，但是你不必通过使用 VUX 来使用 `WeUI`。简单的页面你可以直接引入 `WeUI` 样式。详细请参考 [WeUI 文档](https://github.com/weui/weui)。
 
 ## Vue
 

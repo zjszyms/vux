@@ -51,8 +51,8 @@ title: 关于 VUX
 </p>
 
 ::: warning
-  如果你遇到 <code>$t</code> 报错问题，请升级 `vux-loader >= 1.0.58`。<br>
-  VUX 必须配合 `vux-loader` 使用，如果不使用 vux2 模板请按照下面文档正确配置。
+  VUX 必须配合 `vux-loader` 使用，如果不使用 vux2 模板请按照<router-link to="/zh-CN/install/manual-usage.html">文档</router-link>正确配置。<br>
+  VUX 并不是一个能解决所有场景的完美解决方案(实际上也没有一个方案能解决所有问题)，所以如果遇到问题麻烦**不带情绪正确反馈**。
 :::
 
 ## 简介
@@ -63,9 +63,9 @@ title: 关于 VUX
 
 `vux-loader`保证了组件按需使用，因此不用担心最终打包了整个vux的组件库代码。
 
-`vux`并不完全依赖于`WeUI`，但是尽量保持整体UI样式接近`WeUI`的设计规范。
+`VUX`并不完全依赖于`WeUI`，`VUX` 在 `WeUI` 的基础上扩展了多个常用组件，但是尽量保持整体UI样式接近`WeUI`的设计规范。
 
-即使你不直接使用 VUX 组件代码, 你依然可以参考 VUX 代码来实现自己的组件。
+即使你不直接使用 `VUX` 组件代码, 你依然可以参考 VUX 代码来实现自己的组件。
 
 ::: tip
 `VUX` 是`库`而非`框架`，虽然有专用的 `vux-loader`，但并不影响你自由地使用其他组件库或者工具库。<br>
