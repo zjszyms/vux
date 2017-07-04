@@ -105,18 +105,19 @@ import { Cell } from 'vux'
 | <span class="prop-key" style="white-space:nowrap;">value-align</span> | <span class="type type-string">String</span> | left | <span style="font-size:12px;white-space:nowrap;">v2.2.0</span> | 文字值对齐方式，当设为 right 时，primary 值将会设为 content |
 | <span class="prop-key" style="white-space:nowrap;">border-intent</span> | <span class="type type-boolean">Boolean</span> | true | <span style="font-size:12px;white-space:nowrap;">v2.2.1-rc.1</span> | 是否显示边框与左边的间隙 |
 | <span class="prop-key" style="white-space:nowrap;">arrow-direction</span> | <span class="type type-string">String</span> |  | <span style="font-size:12px;white-space:nowrap;">v2.2.1-rc.1</span> | 右侧箭头方向，可选有 up down |
-| <span class="prop-key" style="white-space:nowrap;">disabled</span> | <span class="type type-boolean">Boolean</span> |  | <span style="font-size:12px;white-space:nowrap;">下个版本</span> | 对 label 和箭头(如果使用 is-link)显示不可操作样式 |
+| <span class="prop-key" style="white-space:nowrap;">disabled</span> | <span class="type type-boolean">Boolean</span> |  | <span style="font-size:12px;white-space:nowrap;">v2.2.2</span> | 对 label 和箭头(如果使用 is-link)显示不可操作样式 |
 
 <span class="vux-props-title">Slots</span>
 
 | name    | description   |  version |
 |-------|-------|-------|
-| <span class="prop-key" style="white-space:nowrap;">default</span> | 右侧内容，相比于prop:value的优点是可以用复杂的样式或者调用组件 | <span style="font-size:12px;white-space:nowrap;"></span> |
+| <span class="prop-key" style="white-space:nowrap;">default</span> | 右侧内容，相比于value的优点是可以用复杂的样式或者调用组件 | <span style="font-size:12px;white-space:nowrap;"></span> |
+| <span class="prop-key" style="white-space:nowrap;">value</span> | [废弃] 同默认slot | <span style="font-size:12px;white-space:nowrap;"></span> |
 | <span class="prop-key" style="white-space:nowrap;">icon</span> | 标题左侧的图像位置 | <span style="font-size:12px;white-space:nowrap;"></span> |
 | <span class="prop-key" style="white-space:nowrap;">after-title</span> | 标题右侧位置 | <span style="font-size:12px;white-space:nowrap;"></span> |
 | <span class="prop-key" style="white-space:nowrap;">child</span> | cell的直接子元素，因此可以添加一个相对于cell绝对定位的元素 | <span style="font-size:12px;white-space:nowrap;"></span> |
 | <span class="prop-key" style="white-space:nowrap;">inline-desc</span> | inline-desc 内容，和 prop:inline-desc 功能一样，但是可以使用 html | <span style="font-size:12px;white-space:nowrap;">v2.2.1-rc.6</span> |
-| <span class="prop-key" style="white-space:nowrap;">value</span> | [废弃] 同默认slot | <span style="font-size:12px;white-space:nowrap;"></span> |
+| <span class="prop-key" style="white-space:nowrap;">title</span> | title 插槽，方便自定义样式 | <span style="font-size:12px;white-space:nowrap;">v2.3.3</span> |
 
 
 <a class="vux-demo-link" href="#" router-link="/zh-CN/demos/cell">Demo page</a>
@@ -208,6 +209,7 @@ import { Checklist } from 'vux'
 | <span class="prop-key" style="white-space:nowrap;">random-order</span> | <span class="type type-boolean">Boolean</span> | false | <span style="font-size:12px;white-space:nowrap;"></span> | 是否随机打乱选项顺序 |
 | <span class="prop-key" style="white-space:nowrap;">check-disabled</span> | <span class="type type-boolean">Boolean</span> | true | <span style="font-size:12px;white-space:nowrap;">v2.2.1-rc.1</span> | 是否进行可选检测，默认情况下当选择个数等于可选个数(max)时，其他项不可选择。该选项主要适用于从多个选项列表中收集值的场景。注意的该选项设为 false 时 max 设置将失效。 |
 | <span class="prop-key" style="white-space:nowrap;">label-position</span> | <span class="type type-string">String</span> |  | <span style="font-size:12px;white-space:nowrap;">v2.2.1-rc.4</span> | label 位置，可以设置为 left |
+| <span class="prop-key" style="white-space:nowrap;">disabled</span> | <span class="type type-string">String</span> |  | <span style="font-size:12px;white-space:nowrap;">v2.3.8</span> | 是否禁用操作 |
 
 <span class="vux-props-title">Events</span>
 
@@ -308,6 +310,15 @@ import { Datetime } from 'vux'
 | <span class="prop-key" style="white-space:nowrap;">end-date</span> | <span class="type type-string">String</span> |  | <span style="font-size:12px;white-space:nowrap;"></span> | 限定最大日期，注意该限制只能限定到日期，不能限定到小时分钟 |
 | <span class="prop-key" style="white-space:nowrap;">required</span> | <span class="type type-boolean">Boolean</span> | false | <span style="font-size:12px;white-space:nowrap;"></span> | 是否必填 |
 | <span class="prop-key" style="white-space:nowrap;">display-format</span> | <span class="type type-function">Function</span> |  | <span style="font-size:12px;white-space:nowrap;">v2.1.1-rc.11</span> | 自定义显示值 |
+| <span class="prop-key" style="white-space:nowrap;">readonly</span> | <span class="type type-string">String</span> |  | <span style="font-size:12px;white-space:nowrap;">v2.3.6</span> | 只读模式，显示类似于 cell |
+| <span class="prop-key" style="white-space:nowrap;">show</span> | <span class="type type-string">String</span> |  | <span style="font-size:12px;white-space:nowrap;">v2.3.7</span> | 控制显示，要求 vue^2.3 |
+| <span class="prop-key" style="white-space:nowrap;">default-selected-value</span> | <span class="type type-string">String</span> |  | <span style="font-size:12px;white-space:nowrap;">v2.4.1</span> | 设置默认选中日期，当前 value 为空时有效 |
+
+<span class="vux-props-title">Slots</span>
+
+| name    | description   |  version |
+|-------|-------|-------|
+| <span class="prop-key" style="white-space:nowrap;">title</span> | title slot | <span style="font-size:12px;white-space:nowrap;">v2.3.6</span> |
 
 <span class="vux-props-title">Events</span>
 
@@ -421,6 +432,18 @@ import { InlineCalendar } from 'vux'
 | <span class="prop-key" style="white-space:nowrap;">render-on-value-change</span> | <span class="type type-boolean">Boolean</span> | true | <span style="font-size:12px;white-space:nowrap;"></span> | 当日期变化时是否重新渲染日历，如果是渲染了多个日历的话需要设为false |
 | <span class="prop-key" style="white-space:nowrap;">disable-past</span> | <span class="type type-boolean">Boolean</span> | false | <span style="font-size:12px;white-space:nowrap;"></span> | 禁止选择过去的日期，该选项可以与start-date同时使用 |
 | <span class="prop-key" style="white-space:nowrap;">disable-future</span> | <span class="type type-boolean">Boolean</span> | false | <span style="font-size:12px;white-space:nowrap;"></span> | 禁止选择未来的日期，该选项可以end-date同时使用 |
+
+<span class="vux-props-title">Slots</span>
+
+| name    | description   |  version |
+|-------|-------|-------|
+| <span class="prop-key" style="white-space:nowrap;">each-day</span> | 用以自定义每一天的显示渲染，使用该 slot 就不需要 render-function 了 | <span style="font-size:12px;white-space:nowrap;">v2.3.5</span> |
+
+<span class="vux-props-title">Events</span>
+
+| name    | params   | description |
+|-------|-------|-------|
+| <span class="prop-key" style="white-space:nowrap;">on-change</span> |   &nbsp; | 值变化时触发 |
 
 
 <a class="vux-demo-link" href="#" router-link="/zh-CN/demos/inline-calendar">Demo page</a>
@@ -547,6 +570,12 @@ import { Picker } from 'vux'
 |-------|-------|-------|
 | <span class="prop-key" style="white-space:nowrap;">on-change</span> |   `(value)` | 选择值变化时触发 |
 
+<span class="vux-props-title">Methods</span>
+
+| name    | params   | description | version |
+|-------|-------|-------|-------|
+| <span class="prop-key" style="white-space:nowrap;">getNameValues</span> |   &nbsp; | 根据 value 获取字面值 |<span style="font-size:12px;white-space:nowrap;">v2.3.1</span> | 
+
 
 <a class="vux-demo-link" href="#" router-link="/zh-CN/demos/picker">Demo page</a>
 
@@ -585,6 +614,12 @@ import { PopupPicker } from 'vux'
 | <span class="prop-key" style="white-space:nowrap;">value-text-align</span> | <span class="type type-string">String</span> | right | <span style="font-size:12px;white-space:nowrap;">v2.1.0-rc.3</span> | value 对齐方式(text-align) |
 | <span class="prop-key" style="white-space:nowrap;">display-format</span> | <span class="type type-function">Function</span> |  | <span style="font-size:12px;white-space:nowrap;">v2.1.1-rc.7</span> | 自定义在cell上的显示格式，参数为当前 value，使用该属性时，show-name 属性将失效 |
 
+<span class="vux-props-title">Slots</span>
+
+| name    | description   |  version |
+|-------|-------|-------|
+| <span class="prop-key" style="white-space:nowrap;">title</span> | 标题插槽，使用 scope.labelClass 和 scope.labelStyle 继承原有样式(实现样式受控于 group label 设置) | <span style="font-size:12px;white-space:nowrap;">v2.3.7</span> |
+
 <span class="vux-props-title">Events</span>
 
 | name    | params   | description |
@@ -613,6 +648,22 @@ import { PopupRadio } from 'vux'
 ```
 
 属性同 cell 和 Radio 的属性，需要注意的是不支持 fillMode。
+
+<span class="vux-props-title">Props</span>
+
+| name   | type | default  |  version | description   |
+|-------|-------|-------|-------|-------|
+| <span class="prop-key" style="white-space:nowrap;">readonly</span> | <span class="type type-string">String</span> |  | <span style="font-size:12px;white-space:nowrap;">v2.3.6</span> | 只读样式，类似于 cell |
+
+<span class="vux-props-title">Slots</span>
+
+| name    | description   |  version |
+|-------|-------|-------|
+| <span class="prop-key" style="white-space:nowrap;">popup-header</span> | 弹窗顶部 | <span style="font-size:12px;white-space:nowrap;">v2.3.3</span> |
+| <span class="prop-key" style="white-space:nowrap;">each-item</span> | 自定义每个条目显示内容 | <span style="font-size:12px;white-space:nowrap;">v2.3.7</span> |
+
+
+<a class="vux-demo-link" href="#" router-link="/zh-CN/demos/popup-radio">Demo page</a>
 
 
 
@@ -664,6 +715,14 @@ const options2 = [{
 | <span class="prop-key" style="white-space:nowrap;">fill-mode</span> | <span class="type type-boolean">Boolean</span> | false | <span style="font-size:12px;white-space:nowrap;"></span> | 是否可填写 |
 | <span class="prop-key" style="white-space:nowrap;">fill-placeholder</span> | <span class="type type-string">String</span> |  | <span style="font-size:12px;white-space:nowrap;"></span> | 可填写时的提示文字 |
 | <span class="prop-key" style="white-space:nowrap;">fill-label</span> | <span class="type type-string">String</span> |  | <span style="font-size:12px;white-space:nowrap;"></span> | 可填写时的label文字 |
+| <span class="prop-key" style="white-space:nowrap;">disabled</span> | <span class="type type-boolean">Boolean</span> |  | <span style="font-size:12px;white-space:nowrap;">v2.3.8</span> | 禁用操作 |
+| <span class="prop-key" style="white-space:nowrap;">selected-label-style</span> | <span class="type type-object">Object</span> |  | <span style="font-size:12px;white-space:nowrap;">v2.4.0</span> | 设置选中时的 label 样式，比如使用其他颜色更容易区分是否为选中项 |
+
+<span class="vux-props-title">Slots</span>
+
+| name    | description   |  version |
+|-------|-------|-------|
+| <span class="prop-key" style="white-space:nowrap;">each-item</span> | 自定义如何显示每一项 | <span style="font-size:12px;white-space:nowrap;">v2.3.5</span> |
 
 
 <a class="vux-demo-link" href="#" router-link="/zh-CN/demos/radio">Demo page</a>
@@ -768,6 +827,13 @@ import { Search } from 'vux'
 | <span class="prop-key" style="white-space:nowrap;">position</span> | <span class="type type-string">String</span> | fixed | <span style="font-size:12px;white-space:nowrap;"></span> | 自动固定时的定位，一些布局下可能需要使用其他定位，比如`absolute` |
 | <span class="prop-key" style="white-space:nowrap;">auto-scroll-to-top</span> | <span class="type type-boolean">Boolean</span> | false | <span style="font-size:12px;white-space:nowrap;"></span> | `Safari`下弹出键盘时可能会出现看不到input，需要手动滚动，启用该属性会在fix时滚动到顶端 |
 
+<span class="vux-props-title">Slots</span>
+
+| name    | description   |  version |
+|-------|-------|-------|
+| <span class="prop-key" style="white-space:nowrap;">right</span> | 输入框右侧 slot | <span style="font-size:12px;white-space:nowrap;"></span> |
+| <span class="prop-key" style="white-space:nowrap;">left</span> | 输入框左侧 slot | <span style="font-size:12px;white-space:nowrap;">v2.3.5</span> |
+
 <span class="vux-props-title">Events</span>
 
 | name    | params   | description |
@@ -783,6 +849,7 @@ import { Search } from 'vux'
 | name    | params   | description | version |
 |-------|-------|-------|-------|
 | <span class="prop-key" style="white-space:nowrap;">setFocus</span> |   &nbsp; | 获取 input 焦点，在 Safari 上你必须在 click 事件回调里使用才能生效 |<span style="font-size:12px;white-space:nowrap;"></span> | 
+| <span class="prop-key" style="white-space:nowrap;">setBlur</span> |   &nbsp; | 手动设置 input 失去焦点，一般用于在 on-submit 事件中实现隐藏手机键盘 |<span style="font-size:12px;white-space:nowrap;">v2.3.6</span> | 
 
 
 <a class="vux-demo-link" href="#" router-link="/zh-CN/demos/search">Demo page</a>
@@ -823,6 +890,12 @@ import { Selector } from 'vux'
 | <span class="prop-key" style="white-space:nowrap;">name</span> | <span class="type type-string">String</span> |  | <span style="font-size:12px;white-space:nowrap;"></span> | 表单的name名字 |
 | <span class="prop-key" style="white-space:nowrap;">placeholder</span> | <span class="type type-string">String</span> |  | <span style="font-size:12px;white-space:nowrap;"></span> | 提示文字 |
 | <span class="prop-key" style="white-space:nowrap;">readonly</span> | <span class="type type-string">String</span> | false | <span style="font-size:12px;white-space:nowrap;"></span> | 是否不可选择 |
+
+<span class="vux-props-title">Events</span>
+
+| name    | params   | description |
+|-------|-------|-------|
+| <span class="prop-key" style="white-space:nowrap;">on-change</span> |   `(value)` | 值变化时触发 |
 
 
 <a class="vux-demo-link" href="#" router-link="/zh-CN/demos/selector">Demo page</a>
@@ -880,6 +953,12 @@ import { XAddress, ChinaAddressV2Data } from 'vux'
 | <span class="prop-key" style="white-space:nowrap;">hide-district</span> | <span class="type type-boolean">Boolean</span> | false | <span style="font-size:12px;white-space:nowrap;"></span> | 是否隐藏区，即只显示省份和城市 |
 | <span class="prop-key" style="white-space:nowrap;">value-text-align</span> | <span class="type type-string">String</span> | right | <span style="font-size:12px;white-space:nowrap;"></span> | value 对齐方式(text-align), `v2.1.0-rc.49`开始支持 |
 
+<span class="vux-props-title">Slots</span>
+
+| name    | description   |  version |
+|-------|-------|-------|
+| <span class="prop-key" style="white-space:nowrap;">title</span> | title 插槽，可以使用它来添加 icon 等自定义样式，受控于 group 需要从 scope 里继承 class 和 样式 | <span style="font-size:12px;white-space:nowrap;">v2.3.8</span> |
+
 <span class="vux-props-title">Events</span>
 
 | name    | params   | description |
@@ -922,6 +1001,7 @@ import { XButton } from 'vux'
 | <span class="prop-key" style="white-space:nowrap;">mini</span> | <span class="type type-boolean">Boolean</span> | false | <span style="font-size:12px;white-space:nowrap;"></span> | 是否为mini类型，即小尺寸的按钮 |
 | <span class="prop-key" style="white-space:nowrap;">plain</span> | <span class="type type-boolean">Boolean</span> | false | <span style="font-size:12px;white-space:nowrap;"></span> | 是否是plain样式，没有背景色 |
 | <span class="prop-key" style="white-space:nowrap;">action-type</span> | <span class="type type-string">String</span> |  | <span style="font-size:12px;white-space:nowrap;"></span> | `button`的type属性，默认为浏览器默认(submit)，可选为 `submit` `button` `reset` |
+| <span class="prop-key" style="white-space:nowrap;">link</span> | <span class="type type-string">String</span> |  | <span style="font-size:12px;white-space:nowrap;">v2.3.5</span> | vue-router 路由, 值为 `BACK` 等同于 `go(-1)` |
 
 <span class="vux-props-title">Slots</span>
 
@@ -993,6 +1073,7 @@ import { XInput } from 'vux'
 |-------|-------|-------|
 | <span class="prop-key" style="white-space:nowrap;">on-blur</span> |   `(value)` | input的`blur`事件 |
 | <span class="prop-key" style="white-space:nowrap;">on-focus</span> |   `(value)` | input的`focus`事件 |
+| <span class="prop-key" style="white-space:nowrap;">on-enter</span> |   `(value)` | input输入完成后点击`enter(确认)`事件 |
 | <span class="prop-key" style="white-space:nowrap;">on-change</span> |   `(value)` | 输入值变化时触发。如果你使用了`debounce`，那么触发将不会是实时的。 |
 
 <span class="vux-props-title">Methods</span>
@@ -1000,6 +1081,7 @@ import { XInput } from 'vux'
 | name    | params   | description | version |
 |-------|-------|-------|-------|
 | <span class="prop-key" style="white-space:nowrap;">focus</span> |   &nbsp; | 手动获得焦点 |<span style="font-size:12px;white-space:nowrap;"></span> | 
+| <span class="prop-key" style="white-space:nowrap;">blur</span> |   &nbsp; | 手动设置 input 失去焦点 |<span style="font-size:12px;white-space:nowrap;"></span> | 
 | <span class="prop-key" style="white-space:nowrap;">reset</span> |   `(value = '')` | 重置输入框值，清除错误信息 |<span style="font-size:12px;white-space:nowrap;">v2.1.1-rc.10</span> | 
 
 
@@ -1082,12 +1164,14 @@ import { XSwitch } from 'vux'
 | <span class="prop-key" style="white-space:nowrap;">disabled</span> | <span class="type type-boolean">Boolean</span> | false | <span style="font-size:12px;white-space:nowrap;"></span> | 是否不可点击 |
 | <span class="prop-key" style="white-space:nowrap;">value</span> | <span class="type type-boolean">Boolean</span> | false | <span style="font-size:12px;white-space:nowrap;"></span> | 表单值, 使用`v-model`绑定 |
 | <span class="prop-key" style="white-space:nowrap;">inline-desc</span> | <span class="type type-string">String</span> |  | <span style="font-size:12px;white-space:nowrap;"></span> | 标签下文字 |
+| <span class="prop-key" style="white-space:nowrap;">prevent-default</span> | <span class="type type-boolean">Boolean</span> | false | <span style="font-size:12px;white-space:nowrap;">v2.5.0</span> | 阻止点击时自动设定值 |
 
 <span class="vux-props-title">Events</span>
 
 | name    | params   | description |
 |-------|-------|-------|
 | <span class="prop-key" style="white-space:nowrap;">on-change</span> |   `(value)` | 值变化时触发，参数为 (currentValue) |
+| <span class="prop-key" style="white-space:nowrap;">on-click</span> |   `(newVal, oldVal)` | 点击组件时触发 |
 
 
 <a class="vux-demo-link" href="#" router-link="/zh-CN/demos/x-switch">Demo page</a>
@@ -1107,16 +1191,6 @@ import { XSwitch } from 'vux'
 ``` js
 import { XTextarea } from 'vux'
 ```
-
-
-```html
-  <group>
-    <x-textarea title="title" v-model="value"></x-textarea>
-  </group>
-```
-
-<p class="tip">`x-textarea`只能在`Group`中使用</p>
-
 
 <span class="vux-props-title">Props</span>
 

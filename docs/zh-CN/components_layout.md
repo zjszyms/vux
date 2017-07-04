@@ -48,18 +48,8 @@ import { Divider } from 'vux'
 &nbsp;&nbsp;<span style="color: #999;font-size:12px;"><a href="https://github.com/airyland/vux/blob/v2/src/demos/Grid.vue" target="_blank">demo源码</a></span>
 
 ``` js
-import { Grid, GridItem } from 'vux'
+import { Grid } from 'vux'
 ```
-
-
-``` html
-<grid>
-  <grid-item label="Grid" v-for="i in 9">
-    <img slot="icon" src="../assets/grid_icon.png">
-  </grid-item>
-</grid>
-```
-
 
 <span class="vux-component-name">Grid</span>
 
@@ -112,6 +102,10 @@ import { Scroller } from 'vux'
 ```
 
 <p class="warning">
+该组件已经不再维护，也不建议使用，建议使用第三方相关组件，大部分情况下也不需要用到该组件。
+</p>
+
+<p class="warning">
 `Scroller`的内容必须是一个`div`，并且只能有一个`div`
 <br>
 `Scroller` 希望解决的是简单的列表问题而不是一个内嵌各种复杂标签交互的容器，很容易发生性能或者交互问题。
@@ -161,7 +155,7 @@ import { Scroller } from 'vux'
 
 | name    | params   | description | version |
 |-------|-------|-------|-------|
-| <span class="prop-key" style="white-space:nowrap;">reset</span> |   `(position, duration, easing)` | 在内容变化(v-for渲染，异步数据加载)后需要调用，用以重新渲染，避免新加的内容无法上拉看到，一般在 $nextTick 回调里调用。easing 可以为 ease-in, ease-in-out, ease, bezier(n, n, n, n) |<span style="font-size:12px;white-space:nowrap;"></span> | 
+| <span class="prop-key" style="white-space:nowrap;">reset</span> |   `(position, duration, easing)` | 在内容变化(v-for渲染，异步数据加载)后需要调用，用以重新渲染，避免新加的内容无法上拉看到，一般在 $nextTick 回调里调用。easing 可以为 ease-in, ease-in-out, ease, bezier(n, n, n, n)。duration 为整数，单位毫秒。 |<span style="font-size:12px;white-space:nowrap;"></span> | 
 | <span class="prop-key" style="white-space:nowrap;">donePullup</span> |   &nbsp; | 设置上拉刷新操作完成，在数据加载后执行 |<span style="font-size:12px;white-space:nowrap;"></span> | 
 | <span class="prop-key" style="white-space:nowrap;">disablePullup</span> |   &nbsp; | 禁用上拉刷新，在没有更多数据时执行 |<span style="font-size:12px;white-space:nowrap;"></span> | 
 | <span class="prop-key" style="white-space:nowrap;">enablePullup</span> |   &nbsp; | 启用上拉刷新插件 |<span style="font-size:12px;white-space:nowrap;"></span> | 
@@ -383,6 +377,13 @@ import { ViewBox } from 'vux'
 如果你想保存滚动距离，推荐使用`vuex`实现，在特定`path`对`scrollBody`监听`scroll`事件，并获取滚动距离保存到`vuex`的`state`里。示例可以参考vux源码的`App.vue`
 
 
+<span class="vux-props-title">Props</span>
+
+| name   | type | default  |  version | description   |
+|-------|-------|-------|-------|-------|
+| <span class="prop-key" style="white-space:nowrap;">body-padding-top</span> | <span class="type type-string">String</span> |  | <span style="font-size:12px;white-space:nowrap;"></span> | 主体的`padding-top`值，当顶部存在`x-header`等`absolute`定位元素时需要设置 |
+| <span class="prop-key" style="white-space:nowrap;">body-padding-bottom</span> | <span class="type type-string">String</span> |  | <span style="font-size:12px;white-space:nowrap;"></span> | 主体的`padding-bottom`值，当底部存在`tabbar`等`absolute`定位元素时需要设置 |
+
 <span class="vux-props-title">Slots</span>
 
 | name    | description   |  version |
@@ -390,8 +391,6 @@ import { ViewBox } from 'vux'
 | <span class="prop-key" style="white-space:nowrap;">header</span> | 顶部区域，如果要使用统一的XHeader，可以使用该slot | <span style="font-size:12px;white-space:nowrap;"></span> |
 | <span class="prop-key" style="white-space:nowrap;">default</span> | 主体内容，可滚动的区域 | <span style="font-size:12px;white-space:nowrap;"></span> |
 | <span class="prop-key" style="white-space:nowrap;">bottom</span> | 底部区域，Tabbar可以使用该slot | <span style="font-size:12px;white-space:nowrap;"></span> |
-| <span class="prop-key" style="white-space:nowrap;">body-padding-top</span> | 主体的`padding-top`值，当底部存在`x-header`等`absolute`定位元素时需要设置 | <span style="font-size:12px;white-space:nowrap;"></span> |
-| <span class="prop-key" style="white-space:nowrap;">body-padding-bottom</span> | 主体的`padding-bottom`值，当底部存在`tabbar`等`absolute`定位元素时需要设置 | <span style="font-size:12px;white-space:nowrap;"></span> |
 
 <span class="vux-props-title">Methods</span>
 
@@ -437,7 +436,7 @@ import { XHeader } from 'vux'
 |-------|-------|-------|
 | <span class="prop-key" style="white-space:nowrap;">default</span> | 标题 | <span style="font-size:12px;white-space:nowrap;"></span> |
 | <span class="prop-key" style="white-space:nowrap;">left</span> | 左侧部分插槽，在返回文字后，不会影响到原有的图标 | <span style="font-size:12px;white-space:nowrap;"></span> |
-| <span class="prop-key" style="white-space:nowrap;">overwrite-left</span> | 重写左侧部分的返回文字及图标 | <span style="font-size:12px;white-space:nowrap;">下个版本</span> |
+| <span class="prop-key" style="white-space:nowrap;">overwrite-left</span> | 重写左侧部分的返回文字及图标 | <span style="font-size:12px;white-space:nowrap;">v2.2.2</span> |
 | <span class="prop-key" style="white-space:nowrap;">right</span> | 右侧部分插槽 | <span style="font-size:12px;white-space:nowrap;"></span> |
 
 <span class="vux-props-title">Events</span>

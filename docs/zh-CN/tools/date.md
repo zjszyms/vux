@@ -17,7 +17,7 @@ dateFormat(new Date(), 'YYYY-MM-DD HH:mm:ss')
 
 ## 作为 filter 使用
 
-```
+``` js
 import { dateFormat } from 'vux'
 
 export default {

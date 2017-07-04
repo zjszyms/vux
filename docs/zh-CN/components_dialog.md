@@ -24,8 +24,10 @@ import { Actionsheet } from 'vux'
 | <span class="prop-key" style="white-space:nowrap;">value</span> | <span class="type type-boolean">Boolean</span> | false | <span style="font-size:12px;white-space:nowrap;"></span> | 是否显示, 使用 v-model 绑定变量 |
 | <span class="prop-key" style="white-space:nowrap;">show-cancel</span> | <span class="type type-boolean">Boolean</span> | false | <span style="font-size:12px;white-space:nowrap;"></span> | 是否显示取消菜单 |
 | <span class="prop-key" style="white-space:nowrap;">cancel-text</span> | <span class="type type-string">String</span> | cancel(取消) | <span style="font-size:12px;white-space:nowrap;"></span> | 取消菜单文字 |
+| <span class="prop-key" style="white-space:nowrap;">theme</span> | <span class="type type-string">String</span> | ios | <span style="font-size:12px;white-space:nowrap;"></span> | 菜单风格 |
 | <span class="prop-key" style="white-space:nowrap;">menus</span> | <span class="type type-object">Object</span><br><span class="type type-array">Array</span> | {} | <span style="font-size:12px;white-space:nowrap;"></span> | 菜单项列表，举例：`{menu1: '删除'}`，如果名字上带有`.noop`表明这是纯文本(HTML)展示，不会触发事件，用于展示描述或者提醒。<br>从`v2.1.0`开始支持数组类型的菜单，见下面说明。 |
 | <span class="prop-key" style="white-space:nowrap;">close-on-clicking-mask</span> | <span class="type type-boolean">Boolean</span> | true | <span style="font-size:12px;white-space:nowrap;">v2.0.0</span> | 点击遮罩时是否关闭菜单，适用于一些进入页面时需要强制选择的场景。 |
+| <span class="prop-key" style="white-space:nowrap;">closeOnClickingMenu</span> | <span class="type type-boolean">Boolean</span> | true | <span style="font-size:12px;white-space:nowrap;">v2.3.8</span> | 点击菜单时是否自动隐藏 |
 
 <span class="vux-props-title">Events</span>
 
@@ -34,6 +36,7 @@ import { Actionsheet } from 'vux'
 | <span class="prop-key" style="white-space:nowrap;">on-click-menu</span> |   (menuKey) | 点击菜单时触发，参数为当前菜单项对象 |
 | <span class="prop-key" style="white-space:nowrap;">on-click-menu-{menuKey}</span> |   (menuKey) | 点击事件的快捷方式, 如果你有一个菜单名字为`delete`, 那么你可以监听 `on-click-menu-delete` |
 | <span class="prop-key" style="white-space:nowrap;">on-click-menu-cancel</span> |   &nbsp; | 点击取消菜单时触发 |
+| <span class="prop-key" style="white-space:nowrap;">on-click-mask</span> |   &nbsp; | 点击遮罩时触发 |
 
 
 <a class="vux-demo-link" href="#" router-link="/zh-CN/demos/actionsheet">Demo page</a>
@@ -44,6 +47,11 @@ import { Actionsheet } from 'vux'
 `label`: 菜单名字，支持文字及`html`。
 
 `value`: 英文字符，表示触发事件的名字，如果不设置不会触发`on-click-menu`事件。
+
+`theme`: 菜单风格，可选值如下
+
+  - `ios` ios风格
+  - `android` android风格
 
 `type`: 类型，可选值如下
 
@@ -193,7 +201,12 @@ this.$vux.confirm.show({
   onConfirm () {}
 })
 // 隐藏
-this.$vux.alert.hide()
+this.$vux.confirm.hide()
+// prompt形式调用
+this.$vux.confirm.prompt('placeholder', {
+  onCancel () {}
+  onConfirm () {}
+})
 ```
 
 
@@ -202,11 +215,16 @@ this.$vux.alert.hide()
 | name   | type | default  |  version | description   |
 |-------|-------|-------|-------|-------|
 | <span class="prop-key" style="white-space:nowrap;">show</span> | <span class="type type-boolean">Boolean</span> | false | <span style="font-size:12px;white-space:nowrap;"></span> | 是否显示，使用`v-model`绑定 |
+| <span class="prop-key" style="white-space:nowrap;">show-input</span> | <span class="type type-boolean">Boolean</span> | false | <span style="font-size:12px;white-space:nowrap;">v2.5.0</span> | 是否显示输入框，如果为true，slot会失效 |
+| <span class="prop-key" style="white-space:nowrap;">placeholder</span> | <span class="type type-string">String</span> |  | <span style="font-size:12px;white-space:nowrap;">v2.5.0</span> | 输入框的提示（仅在showInput为true的情况下有效） |
+| <span class="prop-key" style="white-space:nowrap;">theme</span> | <span class="type type-string">String</span> | ios | <span style="font-size:12px;white-space:nowrap;"></span> | 弹窗风格，可以是ios或android |
 | <span class="prop-key" style="white-space:nowrap;">title</span> | <span class="type type-string">String</span> |  | <span style="font-size:12px;white-space:nowrap;"></span> | 弹窗标题 |
+| <span class="prop-key" style="white-space:nowrap;">content</span> | <span class="type type-string">String</span> |  | <span style="font-size:12px;white-space:nowrap;"></span> | 弹窗内容，作为slot默认内容，可以是html片段，如果使用slot该字段会失效 |
 | <span class="prop-key" style="white-space:nowrap;">confirm-text</span> | <span class="type type-string">String</span> | 确认(confirm) | <span style="font-size:12px;white-space:nowrap;"></span> | 确认按钮文字 |
 | <span class="prop-key" style="white-space:nowrap;">cancel-text</span> | <span class="type type-string">String</span> | 取消(cancel) | <span style="font-size:12px;white-space:nowrap;"></span> | 取消按钮文字 |
 | <span class="prop-key" style="white-space:nowrap;">mask-transition</span> | <span class="type type-string">String</span> | vux-fade | <span style="font-size:12px;white-space:nowrap;"></span> | 遮罩动画 |
 | <span class="prop-key" style="white-space:nowrap;">dialog-transition</span> | <span class="type type-string">String</span> | vux-dialog | <span style="font-size:12px;white-space:nowrap;"></span> | 弹窗动画 |
+| <span class="prop-key" style="white-space:nowrap;">close-on-confirm</span> | <span class="type type-boolean">Boolean</span> | true | <span style="font-size:12px;white-space:nowrap;">v2.5.0</span> | 是否在点击确认按钮时自动关闭 |
 
 <span class="vux-props-title">Slots</span>
 
@@ -219,7 +237,7 @@ this.$vux.alert.hide()
 | name    | params   | description |
 |-------|-------|-------|
 | <span class="prop-key" style="white-space:nowrap;">on-cancel</span> |   &nbsp; | 点击取消按钮时触发 |
-| <span class="prop-key" style="white-space:nowrap;">on-confirm</span> |   &nbsp; | 点击确定按钮时触发 |
+| <span class="prop-key" style="white-space:nowrap;">on-confirm</span> |   (value) | 点击确定按钮时触发, 参数为prompt中输入的值 |
 
 
 <a class="vux-demo-link" href="#" router-link="/zh-CN/demos/confirm">Demo page</a>
@@ -271,6 +289,7 @@ loading同样支持在vue外直接使用，请参照 [https://github.com/airylan
 | <span class="prop-key" style="white-space:nowrap;">value</span> | <span class="type type-boolean">Boolean</span> | false | <span style="font-size:12px;white-space:nowrap;"></span> | 显示状态，使用`v-model`绑定 |
 | <span class="prop-key" style="white-space:nowrap;">text</span> | <span class="type type-string">String</span> |  | <span style="font-size:12px;white-space:nowrap;"></span> | 提示文字 |
 | <span class="prop-key" style="white-space:nowrap;">position</span> | <span class="type type-string">String</span> | fixed | <span style="font-size:12px;white-space:nowrap;"></span> | 定位方式，默认为`fixed`，在100%的布局下用`absolute`可以避免抖动 |
+| <span class="prop-key" style="white-space:nowrap;">transition</span> | <span class="type type-string">String</span> | vux-mask | <span style="font-size:12px;white-space:nowrap;"></span> | 显示动画名字 |
 
 <span class="vux-props-title">Slots</span>
 
@@ -362,6 +381,10 @@ Vue.use(vuxToastPlugin)
 this.$vux.toast.show({
  text: 'Loading'
 })
+
+// 显示文字
+this.$vux.toast.text('hello', 'top')
+
 // 隐藏
 this.$vux.toast.hide()
 ```
@@ -444,7 +467,7 @@ export default {
 | <span class="prop-key" style="white-space:nowrap;">dialog-transition</span> | <span class="type type-string">String</span> | vux-dialog | <span style="font-size:12px;white-space:nowrap;"></span> | 弹窗动画 |
 | <span class="prop-key" style="white-space:nowrap;">hide-on-blur</span> | <span class="type type-boolean">Boolean</span> | false | <span style="font-size:12px;white-space:nowrap;"></span> | 是否在点击遮罩时自动关闭弹窗 |
 | <span class="prop-key" style="white-space:nowrap;">scroll</span> | <span class="type type-boolean">Boolean</span> | true | <span style="font-size:12px;white-space:nowrap;"></span> | 是否在弹窗上滚动时 body 内容也滚动 |
-| <span class="prop-key" style="white-space:nowrap;">dialog-style</span> | <span class="type type-object">Object</span> |  | <span style="font-size:12px;white-space:nowrap;"></span> | 设置内部弹窗样式，覆盖原有的宽度、背景颜色等样式 |
+| <span class="prop-key" style="white-space:nowrap;">dialog-style</span> | <span class="type type-object">Object</span> |  | <span style="font-size:12px;white-space:nowrap;">v2.2.2</span> | 设置内部弹窗样式，覆盖原有的宽度、背景颜色等样式 |
 
 <span class="vux-props-title">Slots</span>
 
