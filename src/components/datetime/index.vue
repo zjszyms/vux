@@ -1,8 +1,15 @@
 <template>
-  <a class="vux-datetime weui-cell weui-cell_access" href="javascript:">
+  <a
+  class="vux-datetime weui-cell"
+  :class="{'weui-cell_access': !readonly}"
+  :data-cancel-text="$t('cancel_text')"
+  :data-confirm-text="$t('confirm_text')"
+  href="javascript:">
     <slot>
       <div>
-        <p :style="{width: $parent.labelWidth, textAlign: $parent.labelAlign, marginRight: $parent.labelMarginRight}" v-html="title"></p>
+        <slot name="title">
+          <p :style="{width: $parent.labelWidth, textAlign: $parent.labelAlign, marginRight: $parent.labelMarginRight}" v-html="title"></p>
+        </slot>
         <inline-desc v-if="inlineDesc">{{inlineDesc}}</inline-desc>
       </div>
       <div class="weui-cell__ft vux-cell-primary vux-datetime-value" :style="{textAlign: valueTextAlign}">
@@ -13,16 +20,26 @@
   </a>
 </template>
 
+<i18n>
+cancel_text:
+  en: cancel
+  zh-CN: 取消
+confirm_text:
+  en: done
+  zh-CN: 确定
+</i18n>
+
 <script>
 import Icon from '../icon'
 import Picker from './datetimepicker'
 import Group from '../group'
 import InlineDesc from '../inline-desc'
-import Base from '../../libs/base'
+import Uuid from '../../mixins/uuid'
 import format from '../../tools/date/format'
 
 export default {
-  mixins: [Base],
+  name: 'datetime',
+  mixins: [Uuid],
   components: {
     Group,
     InlineDesc,
@@ -33,10 +50,7 @@ export default {
       type: String,
       default: 'YYYY-MM-DD'
     },
-    title: {
-      type: String,
-      required: true
-    },
+    title: String,
     value: {
       type: String,
       default: ''
@@ -45,14 +59,8 @@ export default {
     placeholder: String,
     minYear: Number,
     maxYear: Number,
-    confirmText: {
-      type: String,
-      default: 'ok'
-    },
-    cancelText: {
-      type: String,
-      default: 'cancel'
-    },
+    confirmText: String,
+    cancelText: String,
     clearText: String,
     yearRow: {
       type: String,
@@ -89,11 +97,16 @@ export default {
     startDate: String,
     endDate: String,
     valueTextAlign: String,
-    displayFormat: Function
+    displayFormat: Function,
+    readonly: Boolean,
+    hourList: Array,
+    minuteList: Array,
+    show: Boolean,
+    defaultSelectedValue: String
   },
   created () {
+    this.isFirstSetValue = false
     this.currentValue = this.value
-    this.handleChangeEvent = true
   },
   data () {
     return {
@@ -104,10 +117,12 @@ export default {
   },
   mounted () {
     const uuid = this.uuid
-    this.$nextTick(() => {
-      this.$el.setAttribute('id', `vux-datetime-${uuid}`)
-      this.render()
-    })
+    this.$el.setAttribute('id', `vux-datetime-${uuid}`)
+    if (!this.readonly) {
+      this.$nextTick(() => {
+        this.render()
+      })
+    }
   },
   computed: {
     _value () {
@@ -124,8 +139,8 @@ export default {
         format: this.format,
         value: this.currentValue,
         output: '.vux-datetime-value',
-        confirmText: this.confirmText,
-        cancelText: _this.cancelText,
+        confirmText: _this.getButtonText('confirm'),
+        cancelText: _this.getButtonText('cancel'),
         clearText: _this.clearText,
         yearRow: this.yearRow,
         monthRow: this.monthRow,
@@ -136,6 +151,15 @@ export default {
         maxHour: this.maxHour,
         startDate: this.startDate,
         endDate: this.endDate,
+        hourList: this.hourList,
+        minuteList: this.minuteList,
+        defaultSelectedValue: this.defaultSelectedValue,
+        onSelect (type, val, wholeValue) {
+          if (_this.picker && _this.picker.config.renderInline) {
+            _this.$emit('input', wholeValue)
+            _this.$emit('on-change', wholeValue)
+          }
+        },
         onConfirm (value) {
           _this.currentValue = value
         },
@@ -143,7 +167,13 @@ export default {
           _this.$emit('on-clear', value)
         },
         onHide () {
+          _this.$emit('update:show', false)
           _this.validate()
+          _this.$emit('on-hide')
+        },
+        onShow () {
+          _this.$emit('update:show', true)
+          _this.$emit('on-show')
         }
       }
       if (this.minYear) {
@@ -160,6 +190,14 @@ export default {
     }
   },
   methods: {
+    getButtonText (type) {
+      if (type === 'cancel' && this.cancelText) {
+        return this.cancelText
+      } else if (type === 'confirm' && this.confirmText) {
+        return this.confirmText
+      }
+      return this.$el.getAttribute(`data-${type}-text`)
+    },
     render () {
       this.$nextTick(() => {
         this.picker && this.picker.destroy()
@@ -177,9 +215,26 @@ export default {
     }
   },
   watch: {
-    currentValue (val) {
-      this.$emit('on-change', val)
+    readonly (val) {
+      if (val) {
+        this.picker && this.picker.destroy()
+      } else {
+        this.render()
+      }
+    },
+    show (val) {
+      if (val) {
+        this.picker && this.picker.show(this.currentValue)
+      }
+    },
+    currentValue (val, oldVal) {
       this.$emit('input', val)
+      if (!this.isFirstSetValue) {
+        this.isFirstSetValue = true
+        oldVal && this.$emit('on-change', val)
+      } else {
+        this.$emit('on-change', val)
+      }
       this.validate()
     },
     startDate () {
@@ -195,6 +250,11 @@ export default {
       this.render()
     },
     value (val) {
+      // do not force render when renderInline is true
+      if (this.picker && this.picker.config.renderInline) {
+        this.currentValue = val
+        return
+      }
       if (this.currentValue !== val) {
         this.currentValue = val
         this.render()
@@ -202,13 +262,27 @@ export default {
     }
   },
   beforeDestroy () {
-    this.picker.destroy()
+    this.picker && this.picker.destroy()
   }
 }
 </script>
 
 <style lang="less">
 @import '../../styles/variable.less';
+
+.dp-container {
+  &.vux-datetime-view {
+    position: static;
+    transition: none;
+    & .dp-header {
+      display: none;
+    }
+  }
+}
+
+.vux-datetime-clear {
+  text-align: center;
+}
 
 .scroller-component {
   display: block;
@@ -303,7 +377,7 @@ export default {
 
 .dp-header .dp-item {
   color: @datetime-header-item-font-color;
-  font-size: 18px;
+  font-size: 16px;
   height: 44px;
   line-height: 44px;
   cursor: pointer;
@@ -329,9 +403,18 @@ export default {
 .dp-content .dp-item {
   box-sizing: border-box;
   flex: 1;
-  text-align: center;
 }
-
+.vux-datetime-cancel {
+  text-align: left;
+  padding-left: 15px;
+}
+.vux-datetime-confirm {
+  text-align: right;
+  padding-right: 15px;
+}
+.vux-datetime {
+  color: #000;
+}
 .vux-datetime .vux-input-icon {
   float: right;
 }

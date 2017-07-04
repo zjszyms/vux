@@ -5,9 +5,10 @@
 </template>
 
 <script>
-import Powerange from './range/lib/powerange'
+import Powerange from './powerange'
 
 export default {
+  name: 'range',
   props: {
     decimal: Boolean,
     value: {
@@ -26,7 +27,7 @@ export default {
     },
     step: {
       type: Number,
-      default: 0
+      default: 1
     },
     disabled: Boolean,
     disabledOpacity: Number,
@@ -66,10 +67,15 @@ export default {
       const handleTop = (this.rangeHandleHeight - this.rangeBarHeight) / 2
       this.$el.querySelector('.range-handle').style.top = `-${handleTop}px`
       this.$el.querySelector('.range-bar').style.height = `${this.rangeBarHeight}px`
+      this.handleOrientationchange = () => {
+        this.update()
+      }
+      window.addEventListener('orientationchange', this.handleOrientationchange, false)
     })
   },
   methods: {
     update () {
+      console.log('update', this.currentValue)
       let value = this.currentValue
       if (value < this.min) {
         value = this.min
@@ -77,9 +83,15 @@ export default {
       if (value > this.max) {
         value = this.max
       }
-      this.range.reInit({min: this.min, max: this.max, value: value})
+      this.range.reInit({
+        min: this.min,
+        max: this.max,
+        step: this.step,
+        value
+      })
       this.currentValue = value
       this.range.setStart(this.currentValue)
+      this.range.setStep()
     }
   },
   data () {
@@ -99,9 +111,15 @@ export default {
     min () {
       this.update()
     },
+    step () {
+      this.update()
+    },
     max () {
       this.update()
     }
+  },
+  beforeDestroy () {
+    window.removeEventListener('orientationchange', this.handleOrientationchange, false)
   }
 }
 </script>

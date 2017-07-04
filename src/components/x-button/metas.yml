@@ -41,11 +41,20 @@ props:
   action-type:
     en: button's type value, one of `submit`, `button`, `reset`
     zh-CN: '`button`的type属性，默认为浏览器默认(submit)，可选为 `submit` `button` `reset`'
+  link:
+    version: v2.3.5
+    en: 'vue-router path, `BACK` is alias to `go(-1)`'
+    zh-CN: 'vue-router 路由, 值为 `BACK` 等同于 `go(-1)`'
 slots:
   default:
     en: button text
     zh-CN: 按钮文字
 changes:
+  v2.5.0:
+    en:
+      - '[feature] Add primary、warn disabled bg color. #1630'
+    zh-CN:
+      - '[feature] 添加禁用背景颜色. #1630'
   v2.1.1-rc.10:
     en:
       - '[feature] Add default disabled bg color. #896'

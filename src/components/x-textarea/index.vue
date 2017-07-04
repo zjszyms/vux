@@ -40,6 +40,7 @@ import InlineDesc from '../inline-desc'
 import Autosize from 'autosize' // prop.autosize
 
 export default {
+  name: 'x-textarea',
   minxins: [Base],
   mounted () {
     if (this.$slots && this.$slots['restricted-label']) {
@@ -112,7 +113,7 @@ export default {
       this.currentValue = val
     },
     currentValue (newVal) {
-      if (this.max && newVal > this.max) {
+      if (this.max && newVal && newVal.length > this.max) {
         this.currentValue = newVal.slice(0, this.max)
       }
       this.$emit('input', this.currentValue)

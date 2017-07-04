@@ -52,8 +52,22 @@ props:
     default: 'false'
     en: if the select is readonly
     zh-CN: 是否不可选择
-
+events:
+  on-change:
+    params: '`(value)`'
+    en: emits when value is changed
+    zh-CN: 值变化时触发
 changes:
+  v2.3.3:
+    en:
+      - '[enhance] set placeholder color. #1465'
+    zh-CN:
+      - '[enhance] 设置 placeholder 颜色. #1465'
+  v2.2.2:
+    en:
+      - '[fix] fix label:for missing'
+    zh-CN:
+      - '[fix] 修复 label for 属性值缺失'
   v2.2.1-rc.6:
     en:
       - '[fix] fix placeholder. #1273'

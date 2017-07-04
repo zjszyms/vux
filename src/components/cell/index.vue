@@ -13,16 +13,18 @@
     </div>
     <div class="vux-cell-bd" :class="{'vux-cell-primary': primary === 'title' && valueAlign !== 'left'}">
       <p>
-        <label class="vux-label" :style="getLabelStyles()" v-if="title">{{title}}</label>
+        <label class="vux-label" :style="getLabelStyles()" v-if="title || hasTitleSlot">
+          <slot name="title">{{ title }}</slot>
+        </label>
         <slot name="after-title"></slot>
       </p>
       <inline-desc>
-        <slot name="inline-desc">{{inlineDesc}}</slot>
+        <slot name="inline-desc">{{ inlineDesc }}</slot>
       </inline-desc>
     </div>
     <div class="weui-cell__ft" :class="valueClass">
       <slot name="value"></slot>
-      <slot>{{value}}</slot>
+      <slot>{{ value }}</slot>
       <i class="weui-loading" v-if="isLoading"></i>
     </div>
     <slot name="child"></slot>
@@ -35,10 +37,14 @@ import { go } from '../../libs/router'
 import props from './props'
 
 export default {
+  name: 'cell',
   components: {
     InlineDesc
   },
   props: props(),
+  beforeMount () {
+    this.hasTitleSlot = !!this.$slots.title
+  },
   computed: {
     valueClass () {
       return {
@@ -60,6 +66,11 @@ export default {
     },
     onClick () {
       !this.disabled && go(this.link, this.$router)
+    }
+  },
+  data () {
+    return {
+      hasTitleSlot: false
     }
   }
 }
@@ -103,7 +114,7 @@ export default {
     color: #b2b2b2;
   }
   &.weui-cell_access .weui-cell__ft:after {
-    border-color: #e2e2e2;
+    border-color: @cell-disabled-arrow-color;
   }
 }
 </style>

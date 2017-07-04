@@ -45,6 +45,10 @@
     "icon": "&#xe62a;"
   },
   {
+    "name": "check-icon",
+    "icon": "&#xe619;"
+  },
+  {
     "name": "checker",
     "icon": "&#xe655;",
     "items": [
@@ -82,6 +86,10 @@
     "icon": "&#xe60a;"
   },
   {
+    "name": "datetime-view",
+    "icon": "&#xe60a;"
+  },
+  {
     "name": "datetime",
     "icon": "&#xe60a;"
   },
@@ -90,11 +98,24 @@
     "icon": "&#xe65d;"
   },
   {
+    "name": "drawer",
+    "icon": "&#xe62a;"
+  },
+  {
     "name": "flexbox",
     "icon": "&#xe61f;",
     "items": [
       "flexbox",
       "flexbox-item"
+    ]
+  },
+  {
+    "name": "flow",
+    "icon": "&#xe656;",
+    "items": [
+      "flow",
+      "flow-state",
+      "flow-line"
     ]
   },
   {
@@ -120,6 +141,10 @@
   {
     "name": "inline-calendar",
     "icon": "&#xe62b;"
+  },
+  {
+    "name": "inline-loading",
+    "icon": "&#xe610;"
   },
   {
     "name": "load-more",

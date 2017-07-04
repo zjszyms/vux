@@ -36,9 +36,21 @@
           :data-current="currentValue"
           :class="buildClass(k2, child, formatDate(year, month, child) === currentValue && !child.isLastMonth && !child.isNextMonth)"
           @click="select(k1,k2,child)">
-            <span
-            v-show="(!child.isLastMonth && !child.isNextMonth ) || (child.isLastMonth && showLastMonth) || (child.isNextMonth && showNextMonth)">{{replaceText(child.day, formatDate(year, month, child))}}</span>
-            <div v-html="renderFunction(k1, k2, child)"></div>
+            <slot
+            :year="year"
+            :month="month"
+            :child="child"
+            :row="k1"
+            :col="k2"
+            :raw-date="formatDate(year, month, child)"
+            :show-date="replaceText(child.day, formatDate(year, month, child))"
+            :is-show="showChild(year, month, child)"
+            name="each-day">
+              <span
+              class="vux-calendar-each-date"
+              v-show="showChild(year, month, child)">{{replaceText(child.day, formatDate(year, month, child))}}</span>
+              <div v-html="renderFunction(k1, k2, child)" v-show="showChild(year, month, child)"></div>
+            </slot>
           </td>
         </tr>
       </tbody>
@@ -52,6 +64,7 @@ import { getDays, zero } from './util'
 import props from './props'
 
 export default {
+  name: 'inline-calendar',
   props: props(),
   data () {
     return {
@@ -103,6 +116,11 @@ export default {
     renderFunction () {
       this.render(this.year, this.month, this.currentValue)
     },
+    renderMonth (val) {
+      if (val && val.length === 2) {
+        this.render(val[0], val[1] - 1)
+      }
+    },
     returnSixRows (val) {
       this.render(this.year, this.month, this.currentValue)
     },
@@ -121,7 +139,12 @@ export default {
   },
   methods: {
     replaceText (day, formatDay) {
-      return this._replaceTextList[formatDay] || day
+      let text = this._replaceTextList[formatDay]
+      if (!text && typeof text === 'undefined') {
+        return day
+      } else {
+        return text
+      }
     },
     convertDate (date) {
       return date === 'TODAY' ? this.today : date
@@ -175,6 +198,12 @@ export default {
       this.render(year, month)
     },
     select (k1, k2, data) {
+      if (data.isLastMonth && !this.showLastMonth) {
+        return
+      }
+      if (data.isNextMonth && !this.showNextMonth) {
+        return
+      }
       if (!data.isBetween) {
         return
       }
@@ -183,6 +212,13 @@ export default {
         this.currentValue = [this.year, zero(this.month + 1), zero(this.days[k1][k2].day)].join('-')
       } else {
         this.currentValue = [data.year, zero(data.month + 1), zero(data.day)].join('-')
+      }
+    },
+    showChild (year, month, child) {
+      if (this.replaceText(child.day, this.formatDate(year, month, child))) {
+        return (!child.isLastMonth && !child.isNextMonth) || (child.isLastMonth && this.showLastMonth) || (child.isNextMonth && this.showNextMonth)
+      } else {
+        return false
       }
     }
   }
@@ -313,36 +349,6 @@ export default {
   border:5px solid rgba(0, 0, 0, 0);
   border-bottom-color: #fff;
 }
-.calendar-tools{
-  height:32px;
-  font-size: 20px;
-  line-height: 32px;
-  color: #04be02;
-}
-.calendar-tools .float.left{
-  float:left;
-}
-.calendar-tools .float.right{
-  float:right;
-}
-.calendar-tools input{
-  font-size: 20px;
-  line-height: 32px;
-  color: #04be02;
-  width: 70px;
-  text-align: center;
-  border:none;
-  background-color: transparent;
-}
-.calendar-tools>i{
-  margin:0 16px;
-  line-height: 32px;
-  cursor: pointer;
-  color:#707070;
-}
-.calendar-tools>i:hover{
-  color:#5e7a88;
-}
 .inline-calendar table {
   clear: both;
   width: 100%;
@@ -353,7 +359,7 @@ export default {
   padding:5px 0;
   text-align: center;
   vertical-align: middle;
-  font-size:16px;
+  font-size: @calendar-date-item-font-size;
   position: relative;
 }
 .inline-calendar td.week{
@@ -363,7 +369,7 @@ export default {
 .inline-calendar td.is-disabled {
   color: @calendar-disabled-font-color;
 }
-.inline-calendar td > span {
+.inline-calendar td > span.vux-calendar-each-date {
   display: inline-block;
   width: 26px;
   height: 26px;
@@ -371,8 +377,8 @@ export default {
   border-radius: 50%;
   text-align: center;
 }
-.inline-calendar td.current > span {
+.inline-calendar td.current > span.vux-calendar-each-date {
   background-color: @calendar-selected-bg-color;
-  color: #fff;
+  color: #fff!important;
 }
 </style>

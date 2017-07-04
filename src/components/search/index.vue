@@ -1,6 +1,7 @@
 <template>
   <div class="vux-search-box" :class="{'vux-search-fixed':isFixed}" :style="{top: isFixed ? top : '', position: fixPosition }">
     <div class="weui-search-bar" :class="{'weui-search-bar_focusing': !isCancel || currentValue}">
+      <slot name="left"></slot>
       <form class="weui-search-bar__form" @submit.prevent="$emit('on-submit', value)" action=".">
         <div class="vux-search-mask" @click="touch" v-show="!isFixed && autoFixed"></div>
         <div class="weui-search-bar__box">
@@ -20,7 +21,7 @@
     </div>
     <div class="weui-cells vux-search_show" v-show="isFixed">
       <slot></slot>
-      <div class="weui-cell weui-cell_access" v-for="item in results" @click="handleResultClick(item)" v-on:touchmove.prevent>
+      <div class="weui-cell weui-cell_access" v-for="item in results" @click="handleResultClick(item)">
         <div class="weui-cell__bd weui-cell_primary">
           <p>{{item.title}}</p>
         </div>
@@ -42,6 +43,7 @@ placeholder:
 import uuidMixin from '../../mixins/uuid'
 
 export default {
+  name: 'search',
   mixins: [uuidMixin],
   props: {
     required: {
@@ -118,6 +120,9 @@ export default {
     setFocus () {
       this.$refs.input.focus()
     },
+    setBlur () {
+      this.$refs.input.blur()
+    },
     onFocus () {
       this.isFocus = true
       this.$emit('on-focus')
@@ -179,6 +184,15 @@ export default {
 .weui-cells.vux-search_show {
   margin-top: 0!important;
   overflow-y: auto;
+  max-height: 400px;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  &::after {
+    display: none;
+  }
 }
 .vux-search-mask {
   position: absolute;

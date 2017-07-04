@@ -4,7 +4,7 @@
       <div class="weui-mask" @click="hideOnBlur && (currentValue = false)" v-show="currentValue"></div>
     </transition>
     <transition :name="dialogTransition">
-      <div class="weui-dialog" v-show="currentValue" :style="dialogStyle">
+      <div :class="dialogClass" v-show="currentValue" :style="dialogStyle">
         <slot></slot>
       </div>
     </transition>
@@ -13,6 +13,7 @@
 
 <script>
 export default {
+  name: 'x-dialog',
   props: {
     value: {
       type: Boolean,
@@ -26,16 +27,15 @@ export default {
       type: String,
       default: 'vux-dialog'
     },
+    dialogClass: {
+      type: String,
+      default: 'weui-dialog'
+    },
     hideOnBlur: Boolean,
     dialogStyle: Object,
     scroll: {
       type: Boolean,
       default: true
-    }
-  },
-  created () {
-    if (typeof this.value !== 'undefined') {
-      this.currentValue = this.value
     }
   },
   watch: {

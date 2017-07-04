@@ -38,27 +38,14 @@ module.exports = {
           }
           str.push(`{
   path: '${path}',
-  component: function (resolve) {
-    require(['./demos/${filename}.vue'], resolve)
-  }
+  component: () => import('./demos/${filename}.vue').then(m => m.default)
 }`)
         })
-
-         if (argv.platform === 'app') {
-           str.push(`{
-  path: '/test/app',
-  component: function (resolve) {
-    require(['./demos/AppTest.vue'], resolve)
-  }
-}`)
-        }
 
         // 404 page
         str.push(`{
   path: '*',
-  component: function (resolve) {
-    require(['./demos/NotFoundComponent.vue'], resolve)
-  }
+  component: () => import('./demos/NotFoundComponent.vue').then(m => m.default)
 }`)
 
         str = `[${str.join(',\n')}]`

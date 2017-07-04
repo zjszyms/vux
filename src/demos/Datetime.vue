@@ -1,8 +1,28 @@
 <template>
   <div>
+
+    <div style="padding:15px;">
+      <x-button type="primary" plain @click.native="showPlugin">{{ $t('Used as a plugin(Hide in 2s)') }}</x-button>
+    </div>
+
     <group :title="$t('default format: YYYY-MM-DD')">
       <datetime v-model="value1" @on-change="change" :title="$t('Birthday')"></datetime>
     </group>
+
+    <group :title="$t('custom minute list: every 15 minutes')">
+      <datetime v-model="minuteListValue" format="YYYY-MM-DD HH:mm" :minute-list="['00', '15', '30', '45']" @on-change="change" :title="$t('Birthday')"></datetime>
+    </group>
+
+    <group :title="$t('custom hour list')">
+      <datetime v-model="hourListValue" format="YYYY-MM-DD HH:mm" :hour-list="['09', '10', '11', '12', '2', '3', '4', '5']" :minute-list="['00', '15', '30', '45']" @on-change="change" :title="$t('Birthday')"></datetime>
+    </group>
+
+    <group title="readonly">
+      <datetime v-model="valueReadonly" :readonly="readonly" @on-change="change" :title="$t('Birthday')"></datetime>
+    </group>
+    <div style="padding:15px">
+      <x-button type="primary" plain @click.native="readonly = !readonly">toggle readonly</x-button>
+    </div>
 
      <group :title="$t('format display value')">
       <datetime v-model="formatValue" :display-format="formatValueFunction" @on-change="change" :title="$t('Birthday')"></datetime>
@@ -33,9 +53,13 @@
     </div>
 
     <group :title="$t('Placeholder')">
-      <datetime v-model="value3" format="YYYY-MM-DD" :placeholder="$t('Please select')" @on-change="change" :title="$t('start time')"></datetime>
+      <datetime v-model="value3" default-selected-value="2017-06-18 13" format="YYYY-MM-DD HH" :placeholder="$t('Please select')" @on-change="change" :title="$t('start time')"></datetime>
     </group>
 
+    <group :title="$t('set default-selected-value to 2017-11-11')">
+      <datetime v-model="value3_1" default-selected-value="2017-11-11" format="YYYY-MM-DD" :placeholder="$t('Please select')" @on-change="change" :title="$t('start time')" :inline-desc="`current value: ${value3_1}`"></datetime>
+    </group>
+    
     <group :title="$t('set min-year and max-year')">
       <datetime v-model="value4" :placeholder="$t('Please select')" :min-year=2000 :max-year=2016 format="YYYY-MM-DD HH:mm" @on-change="change" :title="$t('years after 2000')"></datetime>
     </group>
@@ -57,9 +81,19 @@
         <x-button>{{$t('Click me')}}</x-button>
       </datetime>
     </group>
+
     <group :title="$t('required')">
       <datetime v-model="value8" :title="$t('Required')" clear-text="clear" @on-clear="clearValue8" :required="true"></datetime>
     </group>
+
+    <group :title="$t('use prop:show.sync(vue^2.3) to control visibility')">
+      <datetime v-model="value9" @on-change="change" :title="$t('Birthday')" :show.sync="visibility"></datetime>
+    </group>
+
+    <div style="padding:15px;">
+      <x-button type="primary" plain @click.native="visibility = true">显示</x-button>
+    </div>
+
   </div>
 </template>
 
@@ -104,6 +138,16 @@ format display value:
   zh-CN: 格式化显示
 toggle format:
   zh-CN: 改变格式
+'custom minute list: every 15 minutes':
+  zh-CN: 自定义分钟列表（每15分钟）
+custom hour list:
+  zh-CN: 定义小时列表
+'use prop:show.sync(vue^2.3) to control visibility':
+  zh-CN: 使用 prop:show 控制显示(vue^2.3)
+Used as a plugin(Hide in 2s):
+  zh-CN: 插件形式调用
+set default-selected-value to 2017-11-11:
+  zh-CN: 设置默认选中值为 2017-11-11
 </i18n>
 
 <script>
@@ -117,10 +161,15 @@ export default {
   },
   data () {
     return {
+      readonly: true,
+      minuteListValue: '2017-06-12 09:00',
+      hourListValue: '2017-06-12 09:00',
       format: 'YYYY-MM-DD HH:mm',
       value1: '2015-11-12',
+      valueReadonly: '2015-11-12',
       value2: '',
       value3: '',
+      value3_1: '',
       value4: '',
       value5: '',
       value6: '2016-08-18',
@@ -132,10 +181,32 @@ export default {
       formatValue: '2017-10-11',
       formatValueFunction (val) {
         return val.replace(/-/g, '$')
-      }
+      },
+      value9: '',
+      visibility: false
     }
   },
   methods: {
+    showPlugin () {
+      this.$vux.datetime.show({
+        cancelText: '取消',
+        confirmText: '确定',
+        format: 'YYYY-MM-DD HH',
+        value: '2017-05-20 18',
+        onConfirm (val) {
+          console.log('plugin confirm', val)
+        },
+        onShow () {
+          console.log('plugin show')
+        },
+        onHide () {
+          console.log('plugin hide')
+        }
+      })
+      setTimeout(() => {
+        this.$vux.datetime.hide()
+      }, 2000)
+    },
     toggleFormat () {
       this.format = this.format === 'YYYY-MM-DD HH:mm' ? 'YYYY-MM-DD' : 'YYYY-MM-DD HH:mm'
     },

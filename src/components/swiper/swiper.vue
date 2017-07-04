@@ -8,6 +8,12 @@
           <p class="vux-swiper-desc" v-if="showDescMask">{{item.title}}</p>
         </a>
       </div>
+      <div v-if="listTwoLoopItem.length > 0" class="vux-swiper-item vux-swiper-item-clone" v-for="(item, index) in listTwoLoopItem" @click="clickListItem(item)" :data-index="index">
+        <a href="javascript:">
+          <div class="vux-img" :style="{backgroundImage: buildBackgroundUrl(item.img)}"></div>
+          <p class="vux-swiper-desc" v-if="showDescMask">{{item.title}}</p>
+        </a>
+      </div>
     </div>
     <div :class="[dotsClass, 'vux-indicator', 'vux-indicator-' + dotsPosition]" v-show="showDots">
       <a href="javascript:" v-for="key in length">
@@ -22,6 +28,7 @@ import Swiper from './swiper.js'
 import { go } from '../../libs/router'
 
 export default {
+  name: 'swiper',
   created () {
     this.index = this.value || 0
     if (this.index) {
@@ -29,6 +36,7 @@ export default {
     }
   },
   mounted () {
+    this.hasTwoLoopItem()
     this.$nextTick(() => {
       if (!(this.list && this.list.length === 0)) {
         this.render(this.index)
@@ -37,6 +45,11 @@ export default {
     })
   },
   methods: {
+    hasTwoLoopItem () {
+      if (this.list.length === 2 && this.loop) {
+        this.listTwoLoopItem = this.list
+      }
+    },
     clickListItem (item) {
       go(item.url, this.$router)
       this.$emit('on-click-list-item', JSON.parse(JSON.stringify(item)))
@@ -67,9 +80,11 @@ export default {
       }
     },
     rerender () {
-      if (!this.$el) {
+      if (!this.$el || this.hasRender) {
         return
       }
+      this.hasRender = true
+      this.hasTwoLoopItem()
       this.$nextTick(() => {
         this.index = this.value || 0
         this.current = this.value || 0
@@ -79,6 +94,7 @@ export default {
       })
     },
     destroy () {
+      this.hasRender = false
       this.swiper && this.swiper.destroy()
     },
     getHeight () {
@@ -150,10 +166,13 @@ export default {
   },
   data () {
     return {
+      hasRender: false,
       current: this.index || 0,
       xheight: 'auto',
       length: this.list.length,
-      index: 0
+      index: 0,
+      // issue #1484 Fix click to fail
+      listTwoLoopItem: []
     }
   },
   watch: {

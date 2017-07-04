@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="weui-cells__title" v-if="title" :style="{color:titleColor}" v-html="title"></div>
-    <div class="weui-cells" :class="{'vux-no-group-title':!title}" :style="{marginTop: gutter}">
+    <div class="weui-cells" :class="{'vux-no-group-title':!title}" :style="{marginTop: typeof gutter === 'number' ? (gutter + 'px') : gutter}">
       <slot name="after-title"></slot>
       <slot></slot>
     </div>
@@ -10,13 +10,14 @@
 
 <script>
 export default {
+  name: 'group',
   props: {
     title: String,
     titleColor: String,
     labelWidth: String,
     labelAlign: String,
     labelMarginRight: String,
-    gutter: String
+    gutter: [String, Number]
   }
 }
 </script>
@@ -24,7 +25,6 @@ export default {
 <style lang="less">
 @import '../../styles/weui/widget/weui_cell/weui_access';
 @import '../../styles/weui/widget/weui_cell/weui_cell_global';
-
 @import '../../styles/blank.less';
 
 .vux-no-group-title {

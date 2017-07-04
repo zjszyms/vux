@@ -42,6 +42,7 @@ export default {
       this.results = val ? getResult(this.value) : []
     },
     onSubmit () {
+      this.$refs.search.setBlur()
       this.$vux.toast.show({
         type: 'text',
         position: 'top',
@@ -65,7 +66,7 @@ export default {
 
 function getResult (val) {
   let rs = []
-  for (let i = 0; i < 8; i++) {
+  for (let i = 0; i < 20; i++) {
     rs.push({
       title: `${val} result: ${i + 1} `,
       other: i

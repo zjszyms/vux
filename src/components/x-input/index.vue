@@ -1,5 +1,5 @@
 <template>
-	<div class="vux-x-input weui-cell" :class="{'weui-cell_warn': !novalidate && !valid}">
+	<div class="vux-x-input weui-cell" :class="{'weui-cell_warn': showWarn}">
     <div class="weui-cell__hd">
       <div :style="labelStyles" v-if="hasRestrictedLabel">
         <slot name="restricted-label"></slot>
@@ -27,7 +27,8 @@
       :disabled="disabled"
       v-model="currentValue"
       @focus="focusHandler"
-      @blur="blur"
+      @blur="onBlur"
+      @keyup="onKeyUp"
       ref="input"/>
       <input
       v-if="type === 'number'"
@@ -46,7 +47,8 @@
       :disabled="disabled"
       v-model="currentValue"
       @focus="focusHandler"
-      @blur="blur"
+      @blur="onBlur"
+      @keyup="onKeyUp"
       ref="input"/>
       <input
       v-if="type === 'email'"
@@ -65,7 +67,8 @@
       :disabled="disabled"
       v-model="currentValue"
       @focus="focusHandler"
-      @blur="blur"
+      @blur="onBlur"
+      @keyup="onKeyUp"
       ref="input"/>
       <input
       v-if="type === 'password'"
@@ -84,7 +87,8 @@
       :disabled="disabled"
       v-model="currentValue"
       @focus="focusHandler"
-      @blur="blur"
+      @blur="onBlur"
+      @keyup="onKeyUp"
       ref="input"/>
       <input
       v-if="type === 'tel'"
@@ -103,13 +107,14 @@
       :disabled="disabled"
       v-model="currentValue"
       @focus="focusHandler"
-      @blur="blur"
+      @blur="onBlur"
+      @keyup="onKeyUp"
       ref="input"/>
     </div>
     <div class="weui-cell__ft">
       <icon type="clear" v-show="!equalWith && showClear && currentValue && !readonly && !disabled" @click.native="clear"></icon>
 
-      <icon class="vux-input-icon" type="warn" :title="!valid ? firstError : ''" v-show="!novalidate && !equalWith && ((touched && !valid && firstError) || (forceShowError && !valid && firstError))"></icon>
+      <icon class="vux-input-icon" type="warn" :title="!valid ? firstError : ''" v-show="showWarn"></icon>
       <icon class="vux-input-icon" type="warn" v-if="!novalidate && hasLengthEqual && dirty && equalWith && !valid"></icon>
       <icon type="success" v-show="!novalidate && equalWith && equalWith === currentValue && valid"></icon>
 
@@ -150,6 +155,7 @@ const validators = {
   }
 }
 export default {
+  name: 'x-input',
   created () {
     this.currentValue = this.value || ''
     if (!this.title && !this.placeholder && !this.currentValue) {
@@ -259,6 +265,9 @@ export default {
           textAlign: this.textAlign
         }
       }
+    },
+    showWarn () {
+      return !this.novalidate && !this.equalWith && !this.valid && this.firstError && (this.touched || this.forceShowError)
     }
   },
   methods: {
@@ -275,13 +284,22 @@ export default {
     focus () {
       this.$refs.input.focus()
     },
+    blur () {
+      this.$refs.input.blur()
+    },
     focusHandler () {
       this.$emit('on-focus', this.currentValue)
     },
-    blur () {
+    onBlur () {
       this.setTouched()
       this.validate()
       this.$emit('on-blur', this.currentValue)
+    },
+    onKeyUp (e) {
+      if (e.key === 'Enter') {
+        e.target.blur()
+        this.$emit('on-enter', this.currentValue)
+      }
     },
     getError () {
       let key = Object.keys(this.errors)[0]

@@ -6,12 +6,20 @@
 
 <script>
 export default {
+  name: 'checker-item',
   props: {
     value: {
       type: [String, Number, Object],
       required: true
     },
     disabled: Boolean
+  },
+  watch: {
+    disabled (val) {
+      if (val && this.$parent.type === 'radio' && this.value === this.$parent.currentValue) {
+        this.$parent.currentValue = ''
+      }
+    }
   },
   computed: {
     classNames () {
@@ -64,7 +72,11 @@ export default {
     },
     selectRadio () {
       if (!this.disabled) {
-        this.$parent.currentValue = this.value
+        if (this.$parent.currentValue === this.value) {
+          this.$parent.currentValue = ''
+        } else {
+          this.$parent.currentValue = this.value
+        }
       }
       this.$emit('on-item-click', this.value, this.disabled)
     },

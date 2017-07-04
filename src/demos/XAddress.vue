@@ -4,13 +4,27 @@
       <x-address @on-hide="logHide" @on-show="logShow" :title="title" v-model="value" :list="addressData" placeholder="请选择地址" inline-desc="可以设置placeholder"></x-address>
       <cell title="上面value值" :value="value"></cell>
     </group>
+
+    <group>
+    <x-address :title="title" @on-hide="logHide" v-model="value_0_1" :list="addressData" placeholder="请选择地址">
+      <template slot="title" scope="props">
+        <span :class="props.labelClass" :style="props.labelStyle" style="height:24px;">
+          <span class="demo-icon demo-icon-big" style="font-size:20px;vertical-align:middle;"></span>
+          <span style="vertical-align:middle;">地址</span>
+        </span>
+      </template>    
+    </x-address>
+    </group>
+
     <br>
-    <group label-width="4em" label-align="left">
+    <group label-width="5em" label-align="left">
       <x-address :title="title2" v-model="value2" raw-value :list="addressData" value-text-align="left"></x-address>
     </group>
     <br/>
     <div style="padding: 0 15px;">
-      <x-button type="primary" @click.native="changeData">改变数据</x-button>
+      <x-button type="primary" @click.native="changeData">改变数据（通过 id）</x-button>
+      <x-button type="primary" @click.native="changeDataByLabels">改变数据（通过文字值）</x-button>
+      <x-button type="primary" @click.native="changeDataByLabels2">改变数据（两级，通过文字值）</x-button>
     </div>
     <br/>
 
@@ -43,6 +57,7 @@ export default {
   data () {
     return {
       title: '默认为空',
+      value_0_1: [],
       value: [],
       title2: '设置值',
       value2: ['天津市', '市辖区', '和平区'],
@@ -55,6 +70,12 @@ export default {
   methods: {
     changeData () {
       this.value2 = ['430000', '430400', '430407']
+    },
+    changeDataByLabels () {
+      this.value2 = ['广东省', '广州市', '天河区']
+    },
+    changeDataByLabels2 () {
+      this.value2 = ['广东省', '中山市', '--']
     },
     getName (value) {
       return value2name(value, ChinaAddressV3Data)

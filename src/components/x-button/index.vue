@@ -1,11 +1,15 @@
 <template>
-  <button class="weui-btn" :class="classes" :disabled="disabled" :type="actionType">
-    <i class="weui-loading" v-if="showLoading"></i><slot>{{text}}</slot>
+  <button class="weui-btn" :class="classes" :disabled="disabled" :type="actionType" @click="onClick">
+    <i class="weui-loading" v-if="showLoading"></i>
+    <slot>{{ text }}</slot>
   </button>
 </template>
 
 <script>
+import { go } from '../../libs/router'
+
 export default {
+  name: 'x-button',
   props: {
     type: {
       default: 'default'
@@ -15,7 +19,13 @@ export default {
     plain: Boolean,
     text: String,
     actionType: String,
-    showLoading: Boolean
+    showLoading: Boolean,
+    link: String
+  },
+  methods: {
+    onClick () {
+      !this.disabled && go(this.link, this.$router)
+    }
   },
   computed: {
     classes () {

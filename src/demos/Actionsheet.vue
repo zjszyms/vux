@@ -2,8 +2,8 @@
   <div>
     <group>
       <x-switch :title="$t('Basic Usage')" v-model="show1"></x-switch>
+      <x-switch :title="$t('Android Theme')" v-model="show7"></x-switch>
       <x-switch :title="$t('Show cancel menu')" v-model="show2"></x-switch>
-      <x-switch :title="$t('menu as tips')" v-model="show3"></x-switch>
       <x-switch :title="$t('Array menu')" v-model="show5"></x-switch>
     </group>
 
@@ -11,7 +11,13 @@
       <x-switch :title="$t('Basic Usage')" v-model="show4"></x-switch>
     </group>
 
-    <actionsheet v-model="show4" :menus="menus1" :close-on-clicking-mask="false" show-cancel></actionsheet>
+    <group>
+      <x-switch :title="$t('menu as tips')" v-model="show3"></x-switch>
+      <x-switch :title="$t('slot:header')" v-model="show6"></x-switch>
+      <x-switch :title="$t('Prevent auto closing')" v-model="show8"></x-switch>
+    </group>
+
+    <actionsheet v-model="show4" :menus="menus1" :close-on-clicking-mask="false" show-cancel @on-click-mask="console('on click mask')"></actionsheet>
 
     <actionsheet v-model="show1" :menus="menus1" @on-click-menu="click"></actionsheet>
 
@@ -20,14 +26,36 @@
     <actionsheet v-model="show3" :menus="menus3" @on-click-menu="click" @on-click-menu-delete="onDelete" show-cancel></actionsheet>
 
     <actionsheet v-model="show5" :menus="menus5" show-cancel @on-click-menu="click"></actionsheet>
+
+    <actionsheet v-model="show6" :menus="menus1">
+      <p slot="header" v-html="$t('actionsheet header')"></p>
+    </actionsheet>
+
+    <actionsheet v-model="show7" :menus="menu7" theme="android" @on-click-menu="click">
+    </actionsheet>
     
-    <toast v-model="showSuccess">{{$t('Deleted~') }}</toast>
+    <toast v-model="showSuccess">{{ $t('Deleted~') }}</toast>
+
+    <div v-transfer-dom>
+      <actionsheet v-model="show8" :menus="menus8" @on-click-menu="demo8doClose" :close-on-clicking-mask="false" :close-on-clicking-menu="false">
+      </actionsheet>
+    </div>
   </div>
 </template>
 
 <i18n>
+Prevent auto closing:
+  zh-CN: 不自动关闭
+Close me:
+  zh-CN: 点我关闭
+Deleted~:
+  zh-CN: 删除成功
+slot:header:
+  zh-CN: 使用 header slot
 Basic Usage:
   zh-CN: 基本使用
+Android Theme:
+  zh-CN: 安卓风格
 Show cancel menu:
   zh-CN: 显示取消菜单
 menu as tips:
@@ -42,7 +70,8 @@ Take Photo:
   zh-CN: 拍照
 Choose from photos:
   zh-CN: 从相册选择
-'Are you sure?<br/><span style="color:#666;font-size:12px;">Once deleted, you will never find it.</span>':
+actionsheet header:
+  en: 'Are you sure?<br/><span style="color:#666;font-size:12px;">Once deleted, you will never find it.</span>'
   zh-CN: '确定咩?<br/><span style="color:#666;font-size:12px;">删除后就无法撤消了哦</span>'
 '<span style="color:red">Delete</span>':
   zh-CN: '<span style="color:red">删除</span>'
@@ -51,7 +80,7 @@ Array menu:
 </i18n>
 
 <script>
-import { Actionsheet, Group, XSwitch, Toast } from 'vux'
+import { TransferDom, Actionsheet, Group, XSwitch, Toast } from 'vux'
 
 export default {
   components: {
@@ -59,6 +88,9 @@ export default {
     Group,
     XSwitch,
     Toast
+  },
+  directives: {
+    TransferDom
   },
   data () {
     return {
@@ -75,8 +107,11 @@ export default {
       show3: false,
       show4: false,
       show5: false,
+      show6: false,
+      show7: false,
+      show8: false,
       menus5: [{
-        label: 'Are you sure?<br/><span style="color:#666;font-size:12px;">Once deleted, you will never find it.</span>',
+        label: 'actionsheet header',
         type: 'info'
       }, {
         label: 'Primary',
@@ -91,14 +126,35 @@ export default {
       }, {
         label: 'Default'
       }],
+      menu7: {
+        menu1: '北京烤鸭',
+        menu2: '陕西油泼面',
+        menu3: '西安肉夹馍'
+      },
       showSuccess: false,
       menus3: {
-        'title.noop': 'Are you sure?<br/><span style="color:#666;font-size:12px;">Once deleted, you will never find it.</span>',
+        'title.noop': 'actionsheet header',
         delete: '<span style="color:red">Delete</span>'
+      },
+      menus8: {
+        menu1: 'Close me',
+        menu2: 'Close me'
       }
     }
   },
   methods: {
+    demo8doClose () {
+      this.$vux.loading.show({
+        text: 'processing'
+      })
+      setTimeout(() => {
+        this.$vux.loading.hide()
+        this.show8 = false
+      }, 1000)
+    },
+    console (msg) {
+      console.log(msg)
+    },
     click (key) {
       console.log(key)
     },

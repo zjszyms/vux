@@ -99,5 +99,11 @@
   "CellFormPreview",
   "Issue1211#/issue/1211",
   "XTable",
-  "PopupRadio"
+  "PopupRadio",
+  "Flow",
+  "InlineLoading",
+  "InlineCalendarEachDaySlot#/demo/inline-calendar-each-day-slot",
+  "CheckIcon",
+  "Drawer",
+  "DatetimeView"
 ]

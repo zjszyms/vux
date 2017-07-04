@@ -1,9 +1,10 @@
 <template>
-  <span v-text="text" :class="['vux-badge', {'vux-badge-single': typeof text !== 'undefined' && text.toString().length === 1}]"></span>
+  <span v-text="text" :class="['vux-badge', {'vux-badge-dot': typeof text === 'undefined', 'vux-badge-single': typeof text !== 'undefined' && text.toString().length === 1}]"></span>
 </template>
 
 <script>
 export default {
+  name: 'badge',
   props: {
     text: [String, Number]
   }
@@ -29,5 +30,9 @@ export default {
 .vux-badge-single {
   padding: 0;
   width: 16px;
+}
+.vux-badge-dot {
+  height: auto;
+  padding: 5px
 }
 </style>

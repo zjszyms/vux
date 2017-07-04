@@ -87,7 +87,46 @@ props:
     default: false
     en: if disable future days
     zh-CN: 禁止选择未来的日期，该选项可以end-date同时使用
+slots:
+  each-day:
+    version: v2.3.5
+    en: you can custom how to display each day
+    zh-CN: 用以自定义每一天的显示渲染，使用该 slot 就不需要 render-function 了
+events:
+  on-change:
+    en: emits when value is changed
+    zh-CN: 值变化时触发
 changes:
+  v2.4.0:
+    en:
+      - '[enhance] re-render when render-month is changed'
+    zh-CN:
+      - '[enhance] 当 render-month 变化时重新渲染日历'
+  v2.3.8:
+    en:
+      - '[enhance] prevent from clicking invisiable date #1564'
+    zh-CN:
+      - '[enhance] 不可见日期不可点击 #1564'
+  v2.3.6:
+    en:
+      - '[change] render-function params day => date #1361'
+    zh-CN:
+      - '[change] render-function 参数 day => date（在 3.0 版本前不会影响目前使用）#1361'
+  v2.3.5:
+    en:
+      - '[feature] Support slot:each-day'
+    zh-CN:
+      - '[feature] 支持自定义每一天的 html 渲染 slot:each-day'
+  v2.3.1:
+    en:
+      - '[fix] Fix render-function-generated-content visibility issue #1409'
+    zh-CN:
+      - '[fix] 修复 render-function 生成的内容错误显示问题 #1409'
+  v2.2.2:
+    en:
+      - "[enhance] when replace text of date is empty string, span of date will not show"
+    zh-CN:
+      - '[enhance] 当日期的替代文字为空字符串时，包含日期的 `span` 元素将不显示'
   v2.2.1-rc.2:
     en:
       - "[enhance] Now next month's day can be clicked and will automatically switch to next month's view #1192"
