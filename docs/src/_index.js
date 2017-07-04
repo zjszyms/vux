@@ -984,6 +984,11 @@ routes.push({
 })
     
 routes.push({
+  path: '/zh-CN/components/check-icon.html',
+  component: () => import('../zh-CN/components/check-icon.vue')
+})
+    
+routes.push({
   path: '/zh-CN/components/checker.html',
   component: () => import('../zh-CN/components/checker.vue')
 })
@@ -1024,6 +1029,11 @@ routes.push({
 })
     
 routes.push({
+  path: '/zh-CN/components/datetime-view.html',
+  component: () => import('../zh-CN/components/datetime-view.vue')
+})
+    
+routes.push({
   path: '/zh-CN/components/datetime.html',
   component: () => import('../zh-CN/components/datetime.vue')
 })
@@ -1034,8 +1044,18 @@ routes.push({
 })
     
 routes.push({
+  path: '/zh-CN/components/drawer.html',
+  component: () => import('../zh-CN/components/drawer.vue')
+})
+    
+routes.push({
   path: '/zh-CN/components/flexbox.html',
   component: () => import('../zh-CN/components/flexbox.vue')
+})
+    
+routes.push({
+  path: '/zh-CN/components/flow.html',
+  component: () => import('../zh-CN/components/flow.vue')
 })
     
 routes.push({
@@ -1066,6 +1086,11 @@ routes.push({
 routes.push({
   path: '/zh-CN/components/inline-desc.html',
   component: () => import('../zh-CN/components/inline-desc.vue')
+})
+    
+routes.push({
+  path: '/zh-CN/components/inline-loading.html',
+  component: () => import('../zh-CN/components/inline-loading.vue')
 })
     
 routes.push({
